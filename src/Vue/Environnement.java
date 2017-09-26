@@ -1,4 +1,4 @@
-package simulation;
+package Vue.simulation;
 
 import javax.swing.SwingWorker;
 
@@ -11,7 +11,7 @@ public class Environnement extends SwingWorker<Object, String> {
 		while(actif) {
 			Thread.sleep(DELAI);
 			/**
-			 * C'est ici que vous aurez à faire la gestion de la notion de tour.
+			 * C'est ici que vous aurez ï¿½ faire la gestion de la notion de tour.
 			 */
 			firePropertyChange("TEST", null, "Ceci est un test");
 		}
