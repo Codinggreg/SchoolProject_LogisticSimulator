@@ -1,4 +1,8 @@
 package Modele;
 
-public class Batiment {
+public abstract class Batiment {
+    private Batiment _destination;
+    private int _inventaire;
+
+    public abstract Composante getSortieProduction();
 }

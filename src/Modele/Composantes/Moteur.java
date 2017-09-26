@@ -1,4 +1,6 @@
 package Modele.Composantes;
 
-public class Moteur {
+import Modele.Composante;
+
+public class Moteur extends Composante {
 }

@@ -1,4 +1,4 @@
-package simulation;
+package Vue.simulation;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -18,15 +18,15 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener 
 		MenuFenetre menuFenetre = new MenuFenetre();
 		add(panneauPrincipal);
 		add(menuFenetre, BorderLayout.NORTH);
-		// Faire en sorte que le X de la fenêtre ferme la fenêtre
+		// Faire en sorte que le X de la fenï¿½tre ferme la fenï¿½tre
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle(TITRE_FENETRE);
 		setSize(DIMENSION);
-		// Rendre la fenêtre visible
+		// Rendre la fenï¿½tre visible
 		setVisible(true);
-		// Mettre la fenêtre au centre de l'écran
+		// Mettre la fenï¿½tre au centre de l'ï¿½cran
 		setLocationRelativeTo(null);
-		// Empêcher la redimension de la fenêtre
+		// Empï¿½cher la redimension de la fenï¿½tre
 		setResizable(false);
 	}
 

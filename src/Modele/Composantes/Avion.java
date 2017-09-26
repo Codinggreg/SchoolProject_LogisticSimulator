@@ -1,4 +1,6 @@
 package Modele.Composantes;
 
-public class Avion {
+import Modele.Composante;
+
+public class Avion extends Composante {
 }

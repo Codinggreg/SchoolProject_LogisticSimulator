@@ -1,4 +1,6 @@
-package Modele;
+package Modele.Composantes;
 
-public class Aile {
+import Modele.Composante;
+
+public class Aile extends Composante {
 }

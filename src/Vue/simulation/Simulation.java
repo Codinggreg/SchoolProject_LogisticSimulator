@@ -1,9 +1,11 @@
-package simulation;
+package Vue.simulation;
+
+import Vue.Environnement;
 
 public class Simulation {
 
 	/**
-	 * Cette classe représente l'application dans son ensemble.
+	 * Cette classe reprï¿½sente l'application dans son ensemble.
 	 */
 	public static void main(String[] args) {
 		Environnement environnement = new Environnement();

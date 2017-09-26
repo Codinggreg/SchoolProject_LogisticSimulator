@@ -1,4 +1,4 @@
-package simulation;
+package Vue.simulation;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -20,7 +20,7 @@ public class MenuFenetre extends JMenuBar {
 	private static final String MENU_SIMULATION_TITRE = "Simulation";
 	private static final String MENU_SIMULATION_CHOISIR = "Choisir";
 	private static final String MENU_AIDE_TITRE = "Aide";
-	private static final String MENU_AIDE_PROPOS = "À propos de...";
+	private static final String MENU_AIDE_PROPOS = "ï¿½ propos de...";
 
 	public MenuFenetre() {
 		ajouterMenuFichier();
@@ -29,7 +29,7 @@ public class MenuFenetre extends JMenuBar {
 	}
 
 	/**
-	 * Créer le menu de Fichier
+	 * Crï¿½er le menu de Fichier
 	 */
 	private void ajouterMenuFichier() {
 		JMenu menuFichier = new JMenu(MENU_FICHIER_TITRE);
@@ -38,16 +38,16 @@ public class MenuFenetre extends JMenuBar {
 
 		menuCharger.addActionListener((ActionEvent e) -> {
 			JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-			fileChooser.setDialogTitle("Sélectionnez un fichier de configuration");
+			fileChooser.setDialogTitle("Sï¿½lectionnez un fichier de configuration");
 			fileChooser.setAcceptAllFileFilterUsed(false);
-			// Créer un filtre
+			// Crï¿½er un filtre
 			FileNameExtensionFilter filtre = new FileNameExtensionFilter(".xml", "xml");
 			fileChooser.addChoosableFileFilter(filtre);
 
 			int returnValue = fileChooser.showOpenDialog(null);
 
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
-				// TODO - Parser le fichier XML sélectionné
+				// TODO - Parser le fichier XML sï¿½lectionnï¿½
 				File selectedFile = fileChooser.getSelectedFile();
 				System.out.println(selectedFile.getAbsolutePath());
 			}
@@ -65,7 +65,7 @@ public class MenuFenetre extends JMenuBar {
 	}
 
 	/**
-	 * Créer le menu de Simulation
+	 * Crï¿½er le menu de Simulation
 	 */
 	private void ajouterMenuSimulation() {
 		JMenu menuSimulation = new JMenu(MENU_SIMULATION_TITRE);
@@ -73,8 +73,8 @@ public class MenuFenetre extends JMenuBar {
 		menuSimulation.add(menuChoisir);
 
 		menuChoisir.addActionListener((ActionEvent e) -> {
-			// Ouvrir la fenêtre de sélection
-			// TODO - Récupérer la bonne stratégie de vente
+			// Ouvrir la fenï¿½tre de sï¿½lection
+			// TODO - Rï¿½cupï¿½rer la bonne stratï¿½gie de vente
 			new FenetreStrategie();
 		});
 		add(menuSimulation);
@@ -82,7 +82,7 @@ public class MenuFenetre extends JMenuBar {
 	}
 
 	/**
-	 * Créer le menu Aide
+	 * Crï¿½er le menu Aide
 	 */
 	private void ajouterMenuAide() {
 		JMenu menuAide = new JMenu(MENU_AIDE_TITRE);

@@ -1,4 +1,4 @@
-package Vue.simulation;
+package Vue;
 
 import javax.swing.SwingWorker;
 
