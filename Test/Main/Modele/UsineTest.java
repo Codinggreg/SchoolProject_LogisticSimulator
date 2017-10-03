@@ -18,31 +18,49 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 public class UsineTest {
-    private Batiment usAile;
+    private Usine usAile;
     private final int QTY_MIN=4;
+    int int_prod;
+    String composanteEntree;
+
     @Before
     public void Setup()
     {
-        int int_prod=10;
-        usAile=new UsineAile(QTY_MIN,int_prod);
+        int_prod=10;
+        usAile=new UsineAile(int_prod);
+        usAile.SetQuantiteRequise(Metal.class.toString(),QTY_MIN);
+        composanteEntree = Metal.class.toString();
     }
     @Test
-    public void testUsineAjouterComposante(){
+    public void AjoutInventaire_UsineInventaireVide_UsineRetourneQuantiteAjouteeContenueEnInventaire(){
         int quantiteAjoutee=1;
 
-        assertEquals(0,usAile.getQuantiteInventaire());
+        assertEquals(0,usAile.getQuantiteInventaire(composanteEntree));
 
-        usAile.ajouterInventaire(quantiteAjoutee);
+        usAile.ajouterInventaire(composanteEntree,quantiteAjoutee);
 
-        assertEquals(quantiteAjoutee,usAile.getQuantiteInventaire());
+        assertEquals(quantiteAjoutee,usAile.getQuantiteInventaire(composanteEntree));
     }
     @Test
-    public void testUsinesProduisentBonnesComposantes()
+    public void UsinesProduisentBonnesComposantes_CreerChaqueTypeUsine_ChaqueTypeUsineRetourneTypeDeProductionEnSortie()
     {
 
-        Batiment usAvion=new UsineAvion();
-        Batiment usMoteur=new UsineMoteur();
-        Batiment usMetal=new UsineMatiere();
+        Usine usAvion=new UsineAvion(int_prod);
+        usAvion.SetQuantiteRequise(Moteur.class.toString(),QTY_MIN);
+        usAvion.SetQuantiteRequise(Aile.class.toString(),QTY_MIN);
+        Usine usMoteur=new UsineMoteur(int_prod);
+        usMoteur.SetQuantiteRequise(Metal.class.toString(),QTY_MIN);
+        Usine usMetal=new UsineMatiere(int_prod);
+
+        usAvion.ajouterInventaire(Moteur.class.toString(),QTY_MIN);
+        usAvion.ajouterInventaire(Aile.class.toString(),QTY_MIN);
+        usMoteur.ajouterInventaire(Metal.class.toString(),QTY_MIN);
+        usAile.ajouterInventaire(Metal.class.toString(),QTY_MIN);
+
+        usAvion.avancerTour(int_prod);
+        usAile.avancerTour(int_prod);
+        usMoteur.avancerTour(int_prod);
+        usMetal.avancerTour(int_prod);
 
         assertThat(usAile.extraireSortie(),instanceOf(Aile.class));
         assertThat(usAvion.extraireSortie(),instanceOf(Avion.class));
@@ -50,33 +68,42 @@ public class UsineTest {
         assertThat(usMetal.extraireSortie(),instanceOf(Metal.class));
     }
     @Test
-    public void extraireSortieVideInventaire(){
-        int ajoutInventaire=3;
+    public void ProduireComposanteDiminueInventaire_UsineAInventaireSuffisantPourProduire_InventaireDuneComposanteADiminueDeLaQuantiteRequise(){
+        int ajoutInventaire=5;
 
-        usAile.ajouterInventaire(ajoutInventaire);
+        usAile.ajouterInventaire(composanteEntree,ajoutInventaire);
+        usAile.avancerTour(int_prod);
+
         usAile.extraireSortie();
 
-        assertEquals(0,usine.getQuantiteInventaire());
+        assertEquals(ajoutInventaire-QTY_MIN,usAile.getQuantiteInventaire(composanteEntree));
     }
     @Test
-    public void usineNeProduitPasSiInventaireInsuffisant(){
+    public void PasDeProductionSiInventaireInsffisant_UsineContientpeuInventaire_UsineNeProduitPas(){
         int ajoutInventaire=3;
-        usAile.ajouterInventaire(3);
+
+        usAile.ajouterInventaire(composanteEntree,ajoutInventaire);
+        usAile.avancerTour(int_prod);
+
         assertNull(usAile.extraireSortie());
     }
     @Test
-    public void usineNeProduitPasSiPasAssezDeTemps(){
-        usAile.ajouterInventaire(QTY_MIN);
-        usAile.passerTour(1);
+    public void usineNeProduitPasSiPasAssezDeTemps_UsineAInventaireSuffisantAuPremierTour_UsineNeProduitPas(){
+        int avancementTour=1;
+
+        usAile.ajouterInventaire(composanteEntree,QTY_MIN);
+        usAile.avancerTour(avancementTour);
+
         assertNull(usAile.extraireSortie());
     }
 
     @Test
-    public void usineProduitsiInventaireSuffisant()
+    public void usineProduitSiInventaireSuffisant_UsineQuantiteSuffisanteBonneComposanteBonTour_UneComposante()
     {
         int ajoutInventaire=4;
 
-        usAile.passerTour(10);
+        usAile.ajouterInventaire(composanteEntree,QTY_MIN);
+        usAile.avancerTour(int_prod);
 
         assertNotNull(usAile.extraireSortie());
 

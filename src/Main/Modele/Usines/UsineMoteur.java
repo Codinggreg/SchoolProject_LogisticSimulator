@@ -8,8 +8,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class UsineMoteur extends Usine implements Observer{
-    public UsineMoteur(int entree, int interval) {
-        super(entree, interval);
+    public UsineMoteur(int interval) {
+        super(interval);
     }
 
     @Override
@@ -20,5 +20,15 @@ public class UsineMoteur extends Usine implements Observer{
     @Override
     public Composante extraireSortie() {
         return new Moteur();
+    }
+
+    @Override
+    public void avancerTour(int int_prod) {
+
+    }
+
+    @Override
+    public void SetQuantiteRequise(String s, int qty_min) {
+
     }
 }

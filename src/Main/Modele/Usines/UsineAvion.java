@@ -5,12 +5,22 @@ import Main.Modele.Composante;
 import Main.Modele.Usine;
 
 public class UsineAvion extends Usine {
-    public UsineAvion(int entree, int interval) {
-        super(entree, interval);
+    public UsineAvion(int interval) {
+        super(interval);
     }
 
     @Override
     public Composante extraireSortie() {
         return new Avion();
+    }
+
+    @Override
+    public void avancerTour(int int_prod) {
+
+    }
+
+    @Override
+    public void SetQuantiteRequise(String s, int qty_min) {
+
     }
 }

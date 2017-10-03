@@ -5,8 +5,8 @@ import Main.Modele.Usine;
 import Main.Modele.Composante;
 
 public class UsineMatiere extends Usine {
-    public UsineMatiere(int entree, int interval) {
-        super(entree, interval);
+    public UsineMatiere(int interval) {
+        super(interval);
     }
 
     @Override
@@ -14,4 +14,13 @@ public class UsineMatiere extends Usine {
         return new Metal();
     }
 
+    @Override
+    public void avancerTour(int int_prod) {
+
+    }
+
+    @Override
+    public void SetQuantiteRequise(String s, int qty_min) {
+
+    }
 }
