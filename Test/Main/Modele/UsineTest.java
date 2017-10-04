@@ -115,7 +115,13 @@ public class UsineTest {
 
         assertNull(usAile.extraireSortie());
     }
+    @Test
+    public void Production_UsineAuPremierTour_PasDeProduction()
+    {
 
+        usAile.ajouterInventaire(composanteEntree,QTY_MIN);
+        assertNull(usAile.extraireSortie());
+    }
     @Test
     public void usineProduitSiInventaireSuffisant_UsineQuantiteSuffisanteBonneComposanteBonTour_UneComposante()
     {
