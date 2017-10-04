@@ -27,9 +27,11 @@ public class UsineTest {
     public void Setup()
     {
         int_prod=10;
-        usAile=new UsineAile(int_prod);
-        usAile.SetQuantiteRequise(Metal.class.toString(),QTY_MIN);
         composanteEntree = Metal.class.toString();
+
+        usAile=new UsineAile(int_prod);
+        usAile.AjouterTypeProduction(composanteEntree,QTY_MIN);
+
     }
     @Test
     public void AjoutInventaire_UsineInventaireVide_UsineRetourneQuantiteAjouteeContenueEnInventaire(){
@@ -46,10 +48,10 @@ public class UsineTest {
     {
 
         Usine usAvion=new UsineAvion(int_prod);
-        usAvion.SetQuantiteRequise(Moteur.class.toString(),QTY_MIN);
-        usAvion.SetQuantiteRequise(Aile.class.toString(),QTY_MIN);
+        usAvion.AjouterTypeProduction(Moteur.class.toString(),QTY_MIN);
+        usAvion.AjouterTypeProduction(Aile.class.toString(),QTY_MIN);
         Usine usMoteur=new UsineMoteur(int_prod);
-        usMoteur.SetQuantiteRequise(Metal.class.toString(),QTY_MIN);
+        usMoteur.AjouterTypeProduction(Metal.class.toString(),QTY_MIN);
         Usine usMetal=new UsineMatiere(int_prod);
 
         usAvion.ajouterInventaire(Moteur.class.toString(),QTY_MIN);
@@ -68,7 +70,24 @@ public class UsineTest {
         assertThat(usMetal.extraireSortie(),instanceOf(Metal.class));
     }
     @Test
-    public void ProduireComposanteDiminueInventaire_UsineAInventaireSuffisantPourProduire_InventaireDuneComposanteADiminueDeLaQuantiteRequise(){
+    public void AjouterInventaire_ProductionNonDefinie_RetourneMoinsUn(){
+        int ajoutInventaire=4;
+
+        usAile.ajouterInventaire(Aile.class.toString(),ajoutInventaire);
+
+        assertEquals(-1,usAile.getQuantiteInventaire(Aile.class.toString()));
+    }
+    @Test
+    public void EnleverDeInventaire_UsineAInventaireRetraitPlusGrandInventaire_InventaireEstZero(){
+        int ajoutInventaire=4;
+        int retraitInventaire=-5;
+        usAile.ajouterInventaire(composanteEntree,ajoutInventaire);
+        usAile.ajouterInventaire(composanteEntree,retraitInventaire);
+
+        assertEquals(0,usAile.getQuantiteInventaire(composanteEntree));
+    }
+    @Test
+    public void ProduireComposante_UsineAInventaireSuffisantPourProduire_InventaireDuneComposanteADiminueDeLaQuantiteRequise(){
         int ajoutInventaire=5;
 
         usAile.ajouterInventaire(composanteEntree,ajoutInventaire);
@@ -79,7 +98,7 @@ public class UsineTest {
         assertEquals(ajoutInventaire-QTY_MIN,usAile.getQuantiteInventaire(composanteEntree));
     }
     @Test
-    public void PasDeProductionSiInventaireInsffisant_UsineContientpeuInventaire_UsineNeProduitPas(){
+    public void PasDeProductionSiInventaireInsuffisant_UsineContientpeuInventaire_UsineNeProduitPas(){
         int ajoutInventaire=3;
 
         usAile.ajouterInventaire(composanteEntree,ajoutInventaire);

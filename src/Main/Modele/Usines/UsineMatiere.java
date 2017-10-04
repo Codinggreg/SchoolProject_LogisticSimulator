@@ -10,7 +10,7 @@ public class UsineMatiere extends Usine {
     }
 
     @Override
-    public Composante extraireSortie() {
+    protected Composante getTypeSortie() {
         return new Metal();
     }
 
@@ -19,8 +19,4 @@ public class UsineMatiere extends Usine {
 
     }
 
-    @Override
-    public void SetQuantiteRequise(String s, int qty_min) {
-
-    }
 }

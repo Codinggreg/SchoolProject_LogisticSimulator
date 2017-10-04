@@ -18,7 +18,7 @@ public class UsineMoteur extends Usine implements Observer{
     }
 
     @Override
-    public Composante extraireSortie() {
+    protected Composante getTypeSortie() {
         return new Moteur();
     }
 
@@ -27,8 +27,4 @@ public class UsineMoteur extends Usine implements Observer{
 
     }
 
-    @Override
-    public void SetQuantiteRequise(String s, int qty_min) {
-
-    }
 }

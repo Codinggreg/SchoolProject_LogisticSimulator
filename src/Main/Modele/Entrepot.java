@@ -4,7 +4,12 @@ public class Entrepot extends Batiment {
     private int _capacite;
 
     @Override
-    public Composante extraireSortie() {
+    protected boolean peutProduire() {
+        return false;
+    }
+
+    @Override
+    protected Composante getTypeSortie() {
         return null;
     }
 
