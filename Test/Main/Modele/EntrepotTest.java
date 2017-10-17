@@ -17,7 +17,7 @@ public class EntrepotTest {
         intervalProd=1;
         capacite=5;
         entrepot=new Entrepot(intervalProd,capacite);
-        entrepot.AjouterTypeProduction(Avion.class.toString(),1);
+        entrepot.ajouterTypeProduction(Avion.class.toString(),1);
     }
 
     @Test

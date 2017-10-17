@@ -14,5 +14,8 @@ public class UsineMatiere extends Usine {
         return new Metal();
     }
 
-
+    @Override
+    protected boolean peutProduire() {
+        return isBonTour()&&isProductionDefinie();
+    }
 }

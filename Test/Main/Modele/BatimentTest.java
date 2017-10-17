@@ -19,8 +19,8 @@ public class BatimentTest {
         qtyAile=3;
         qtyMoteur=5;
         usine=new UsineAvion(intervalProd);
-        usine.AjouterTypeProduction(Moteur.class.toString(),qtyMoteur);
-        usine.AjouterTypeProduction(Aile.class.toString(),qtyAile);
+        usine.ajouterTypeProduction(Moteur.class.toString(),qtyMoteur);
+        usine.ajouterTypeProduction(Aile.class.toString(),qtyAile);
     }
     @Test
     public void avancerTour_CourantEtProdEgaux_DifferenceZero(){

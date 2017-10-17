@@ -31,7 +31,13 @@ public abstract class Batiment extends Unite{
     public void set_intervalCourant(int _intervalCourant) {
         this._intervalCourant = _intervalCourant;
     }
+    public boolean isProductionDefinie(){
+        return !this._inventaire.isEmpty();
+    }
     public boolean isInventaireSuffisant(){
+        if(!isProductionDefinie()){
+            return false;
+        }
         for(Production prod: this._inventaire.values()){
             if(!prod.isQuantiteSuffisante()){
                 return false;
@@ -80,7 +86,7 @@ public abstract class Batiment extends Unite{
      * @param s type de composante
      * @param qty_min quantite requis pour produire en sortie
      */
-    public void AjouterTypeProduction(String s, int qty_min){
+    public void ajouterTypeProduction(String s, int qty_min){
         if(!_inventaire.containsKey(s)) {
             Production prod = new Production(qty_min);
             _inventaire.put(s, prod);
@@ -135,9 +141,7 @@ public abstract class Batiment extends Unite{
         }
 
         public void produire() {
-            if (isQuantiteSuffisante()){
                 this._quantiteEnInventaire-=this._quantiteRequise;
-            }
         }
     }
 }

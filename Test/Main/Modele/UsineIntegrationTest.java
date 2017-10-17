@@ -1,13 +1,8 @@
 package Main.Modele;
 
-import Main.Modele.Composantes.Aile;
-import Main.Modele.Composantes.Avion;
 import Main.Modele.Composantes.Metal;
-import Main.Modele.Composantes.Moteur;
 import Main.Modele.Usines.UsineAile;
-import Main.Modele.Usines.UsineAvion;
 import Main.Modele.Usines.UsineMatiere;
-import Main.Modele.Usines.UsineMoteur;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +25,7 @@ public class UsineIntegrationTest {
         composanteEntree = Metal.class.toString();
 
         usAile=new UsineAile(int_prod);
-        usAile.AjouterTypeProduction(composanteEntree,QTY_MIN);
+        usAile.ajouterTypeProduction(composanteEntree,QTY_MIN);
 
     }
 
@@ -89,5 +84,18 @@ public class UsineIntegrationTest {
 
         assertNotNull(usAile.extraireSortie());
 
+    }
+    @Test
+    public void peutProduire_UsineMatiereProduitBonTour_SortieMetal(){
+        Batiment usMatiere=new UsineMatiere(int_prod);
+        usMatiere.ajouterTypeProduction(Metal.class.toString(),1);
+        usMatiere.avancerTour(int_prod);
+        assertThat(usMatiere.extraireSortie(),instanceOf(Metal.class));
+    }
+    @Test
+    public void peutProduire_PasDeProductionDefinie_AucuneSortie(){
+        Batiment usMatiere=new UsineMatiere(int_prod);
+        usMatiere.avancerTour(int_prod);
+        assertNull(usMatiere.extraireSortie());
     }
 }
