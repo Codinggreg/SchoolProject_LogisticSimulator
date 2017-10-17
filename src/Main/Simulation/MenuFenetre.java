@@ -1,7 +1,15 @@
 package Main.Simulation;
 
+import Main.Helpers.XMLHelper;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -10,6 +18,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 public class MenuFenetre extends JMenuBar {
 
@@ -49,6 +60,12 @@ public class MenuFenetre extends JMenuBar {
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
 				// TODO - Parser le fichier XML s�lectionn�
 				File selectedFile = fileChooser.getSelectedFile();
+                Document doc= XMLHelper.getXMLFIle(selectedFile);
+
+
+
+
+
 				System.out.println(selectedFile.getAbsolutePath());
 			}
 		});
