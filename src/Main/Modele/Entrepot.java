@@ -1,14 +1,14 @@
 package Main.Modele;
 
 import Main.Modele.Composantes.Avion;
-import javafx.beans.Observable;
 
 public class Entrepot extends Batiment{
     private int _capacite;
 
 
-    public Entrepot(int interval){
+    public Entrepot(int interval, int capacite){
         super(interval);
+        _capacite=capacite;
     }
 
     @Override
@@ -19,17 +19,17 @@ public class Entrepot extends Batiment{
     @Override
     public void gererAjout(String classType, int quantiteAjoutee) {
         ajouterInventaire(classType,quantiteAjoutee);
-        if(isFull())
+        if(estPlein())
         {
             setChanged();
             notifyObservers();
         }
     }
-    private boolean isFull(){
-        return false;
+    public boolean estPlein(){
+        return this.getQuantiteInventaire(Avion.class.toString())==this._capacite;
     }
     @Override
     protected boolean peutProduire() {
-        return false;
+        return isInventaireSuffisant();
     }
 }
