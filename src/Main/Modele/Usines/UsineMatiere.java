@@ -10,13 +10,9 @@ public class UsineMatiere extends Usine {
     }
 
     @Override
-    protected Composante getTypeSortie() {
+    public Composante getTypeSortie() {
         return new Metal();
     }
 
-    @Override
-    public void avancerTour(int int_prod) {
-
-    }
 
 }

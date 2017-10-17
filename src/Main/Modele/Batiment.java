@@ -2,25 +2,69 @@ package Main.Modele;
 
 import java.util.HashMap;
 
-public abstract class Batiment {
+public abstract class Batiment extends Unite{
     public static final int NOT_IN_INVENTORY = -1;
+    protected HashMap<String,Production> _inventaire;
+    private int _intervalProd;
+    private int _intervalCourant;
     private Batiment _destination;
-    private HashMap<String,Production> _inventaire;
 
-    public Batiment()
+    public Batiment(int interval)
     {
         _inventaire=new HashMap<>();
+        this._intervalProd = interval;
+        this._intervalCourant=0;
     }
-    protected abstract Composante getTypeSortie();
+
+    public int getIntervalProd() {
+        return _intervalProd;
+    }
+
+    public void set_intervalProd(int _intervalProd) {
+        this._intervalProd = _intervalProd;
+    }
+
+    public int getIntervalCourant() {
+        return _intervalCourant;
+    }
+
+    public void set_intervalCourant(int _intervalCourant) {
+        this._intervalCourant = _intervalCourant;
+    }
+    public boolean isInventaireSuffisant(){
+        for(Production prod: this._inventaire.values()){
+            if(!prod.isQuantiteSuffisante()){
+                return false;
+            }
+        }
+        return true;
+    }
+    protected void ajouterInventaire(String type,int quantite){
+        Production prod=_inventaire.get(type);
+        if(prod!=null)
+        {
+            prod.ajoutInventaire(quantite);
+        }
+    }
+    public abstract Composante getTypeSortie();
     protected abstract boolean peutProduire();
+
     public Composante extraireSortie()
     {
         if(peutProduire())
         {
+            ajusterInventaire();
             return getTypeSortie();
         }
         return null;
     }
+
+    private void ajusterInventaire(){
+        for (Production prod :this._inventaire.values()){
+            prod.produire();
+        }
+    }
+
     public int getQuantiteInventaire(String classType){
         Production prod=this._inventaire.get(classType);
         if(prod==null)
@@ -29,14 +73,8 @@ public abstract class Batiment {
         }
         return prod.get_quantiteEnInventaire();
     }
+    public abstract void gererAjout(String classType, int quantiteAjoutee);
 
-    public void ajouterInventaire(String classType, int quantiteAjoutee){
-        Production prod=_inventaire.get(classType);
-        if(prod!=null)
-        {
-            prod.ajoutInventaire(quantiteAjoutee);
-        }
-    }
     /***
      *  Initialise la liste de production du batiment, ou l'inventaire d'un entrepot. Si le type de production existe deja, il n'est pas ecrase avec la nouvelle valeur.
      * @param s type de composante
@@ -49,7 +87,12 @@ public abstract class Batiment {
         }
     }
 
-    public abstract void avancerTour(int int_prod);
+    public void avancerTour(int int_prod){
+        this._intervalCourant+=int_prod;
+        if(_intervalCourant>this._intervalProd){
+            this._intervalCourant=this._intervalCourant-this._intervalProd;
+        }
+    }
 
     private class Production {
         private int _quantiteRequise;
@@ -85,6 +128,15 @@ public abstract class Batiment {
             else
             {
                 this._quantiteEnInventaire=0;
+            }
+        }
+        public boolean isQuantiteSuffisante(){
+            return this._quantiteEnInventaire-this._quantiteRequise>=0;
+        }
+
+        public void produire() {
+            if (isQuantiteSuffisante()){
+                this._quantiteEnInventaire-=this._quantiteRequise;
             }
         }
     }

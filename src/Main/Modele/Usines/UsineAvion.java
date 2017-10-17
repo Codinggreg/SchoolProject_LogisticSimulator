@@ -10,13 +10,7 @@ public class UsineAvion extends Usine {
     }
 
     @Override
-    protected Composante getTypeSortie() {
+    public Composante getTypeSortie() {
         return new Avion();
     }
-
-    @Override
-    public void avancerTour(int int_prod) {
-
-    }
-
 }

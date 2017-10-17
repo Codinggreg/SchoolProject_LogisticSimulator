@@ -1,38 +1,30 @@
 package Main.Modele;
 
 public abstract class Usine extends Batiment{
-    private int _quantiteEntreeMin;
-    protected int _intervalProd;
-    protected int _intervalCourant;
 
     /***
      *
      * @param interval interval de temps requis pour produire une composante
      */
     public Usine(int interval){
-        this.set_intervalProd(interval);
-        this.set_intervalCourant(0);
+        super(interval);
     }
-
-
-    public int get_intervalProd() {
-        return _intervalProd;
+    public boolean isBonTour(){
+        int intervalCourant=this.getIntervalCourant();
+        int intervalProd=this.getIntervalProd();
+        return intervalCourant-intervalProd==0&&intervalCourant>0;
     }
-
-    public void set_intervalProd(int _intervalProd) {
-        this._intervalProd = _intervalProd;
-    }
-
-    public int get_intervalCourant() {
-        return _intervalCourant;
-    }
-
-    public void set_intervalCourant(int _intervalCourant) {
-        this._intervalCourant = _intervalCourant;
-    }
-
     @Override
     protected boolean peutProduire() {
-        return this._intervalCourant%this._intervalProd==0;
+        if(isInventaireSuffisant()&&isBonTour()){
+            return true;
+        }
+        return false;
     }
+    @Override
+    public void gererAjout(String classType, int quantiteAjoutee){
+        this.ajouterInventaire(classType,quantiteAjoutee);
+    }
+
+
 }

@@ -14,10 +14,4 @@ public class UsineAile extends Usine {
         return new Aile();
     }
 
-
-    @Override
-    public void avancerTour(int int_prod) {
-
-    }
-
 }
