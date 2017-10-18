@@ -64,4 +64,32 @@ public class BatimentTest {
         assertEquals(-1,usine.getQuantiteInventaire(classeNonSupportee));
     }
 
+    @Test
+    public void getStatutInventaire_Plein() throws Exception {
+        usine.ajouterInventaire(Aile.class.toString(),qtyAile);
+        usine.ajouterInventaire(Moteur.class.toString(),qtyMoteur);
+        assertEquals(100,usine.getStatutInventaire());
+    }
+    @Test
+    public void getStatutInventaire_UnTiers() throws Exception {
+        usine.ajouterInventaire(Aile.class.toString(),qtyAile);
+        usine.ajouterInventaire(Moteur.class.toString(),qtyMoteur/3);
+        assertTrue(usine.getStatutInventaire()>=33 && usine.getStatutInventaire()<66);
+    }
+    @Test
+    public void getStatutInventaire_DeuxTiers() throws Exception {
+        usine.ajouterInventaire(Aile.class.toString(),qtyAile);
+        usine.ajouterInventaire(Moteur.class.toString(),qtyMoteur-1);
+        assertTrue(usine.getStatutInventaire()>=66);
+    }
+    @Test
+    public void getStatutInventaire_Vide() throws Exception {
+
+        assertEquals(0,usine.getStatutInventaire());
+    }
+    @Test
+    public void getStatutInventaire_MoinsQueUnTiers() throws Exception {
+        usine.ajouterInventaire(Moteur.class.toString(),qtyMoteur/3);
+        assertTrue(usine.getStatutInventaire()<33&&usine.getStatutInventaire()>0);
+    }
 }

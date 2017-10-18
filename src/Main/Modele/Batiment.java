@@ -52,6 +52,16 @@ public abstract class Batiment extends Unite{
             prod.ajoutInventaire(quantite);
         }
     }
+    public int getStatutInventaire(){
+        int quantiteTotaleInventaire=0;
+        int butTotal=0;
+        for(Production prod:_inventaire.values()){
+            quantiteTotaleInventaire+=prod.get_quantiteEnInventaire();
+            butTotal+=prod.get_quantiteRequise();
+        }
+
+        return (int)((double)quantiteTotaleInventaire/butTotal*100);
+    }
     public abstract Composante getTypeSortie();
     protected abstract boolean peutProduire();
 

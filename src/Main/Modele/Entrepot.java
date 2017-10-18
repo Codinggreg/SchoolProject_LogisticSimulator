@@ -17,6 +17,12 @@ public class Entrepot extends Batiment{
     }
 
     @Override
+    public int getStatutInventaire() {
+
+        return (int)((double)getQuantiteInventaire(Avion.class.toString())/this._capacite*100);
+    }
+
+    @Override
     public void gererAjout(String classType, int quantiteAjoutee) {
         ajouterInventaire(classType,quantiteAjoutee);
         if(estPlein())

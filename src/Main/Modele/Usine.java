@@ -16,10 +16,7 @@ public abstract class Usine extends Batiment{
     }
     @Override
     protected boolean peutProduire() {
-        if(isInventaireSuffisant()&&isBonTour()){
-            return true;
-        }
-        return false;
+        return isInventaireSuffisant() && isBonTour();
     }
     @Override
     public void gererAjout(String classType, int quantiteAjoutee){

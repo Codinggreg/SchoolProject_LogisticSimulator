@@ -1,6 +1,7 @@
 package Main;
 
 import Main.Controlleur.Workers.Environnement;
+import Main.Vue.FenetrePrincipale;
 
 public class Simulation {
     static Environnement environnement;
@@ -10,7 +11,7 @@ public class Simulation {
 	public static void main(String[] args) {
 
         environnement = new Environnement();
-		Simulation.FenetrePrincipale fenetre = new Simulation.FenetrePrincipale();
+		FenetrePrincipale fenetre = new FenetrePrincipale();
 
 
 

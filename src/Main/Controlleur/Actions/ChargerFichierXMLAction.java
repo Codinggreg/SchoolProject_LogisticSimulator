@@ -37,6 +37,12 @@ public class ChargerFichierXMLAction extends AbstractAction implements PropertyC
         }
         return null;
     }
+
+    /**
+     * Reponse du XMLSimulationParser
+     * Logique du String worker inspiree de http://www.javacreed.com/swing-worker-example/
+     * @param evt
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
