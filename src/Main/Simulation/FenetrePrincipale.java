@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class FenetrePrincipale extends JFrame implements PropertyChangeListener {
 

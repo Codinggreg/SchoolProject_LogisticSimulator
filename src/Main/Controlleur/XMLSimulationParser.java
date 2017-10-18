@@ -6,12 +6,28 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javax.swing.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class XMLSimulationParser {
+public class XMLSimulationParser extends SwingWorker<HashMap<Integer,Batiment>,String>  {
 
-    public static HashMap<Integer,Batiment> getBatiments(Document doc){
+    private File _xmlFile;
+
+    public XMLSimulationParser(File file) {
+    }
+
+
+    @Override
+    protected HashMap<Integer,Batiment> doInBackground() throws Exception {
+        boolean temp=true;
+
+        firePropertyChange("State",null,StateValue.DONE);
+        return null;
+    }
+
+    public HashMap<Integer,Batiment> getBatiments(Document doc){
 
         if(doc !=null)
         {
@@ -52,5 +68,6 @@ public class XMLSimulationParser {
 
             }
         }
+        return null;
     }
 }

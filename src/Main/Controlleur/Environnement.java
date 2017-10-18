@@ -1,8 +1,10 @@
 package Main.Controlleur;
 
 import javax.swing.SwingWorker;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class Environnement extends SwingWorker<Object, String> {
+public class Environnement extends SwingWorker<Object, String>{
 	private boolean actif = true;
 	private static final int DELAI = 100;
 	
