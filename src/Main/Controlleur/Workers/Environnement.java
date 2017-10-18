@@ -1,4 +1,4 @@
-package Main.Controlleur;
+package Main.Controlleur.Workers;
 
 import javax.swing.SwingWorker;
 import java.beans.PropertyChangeEvent;

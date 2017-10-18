@@ -1,4 +1,4 @@
-package Main.Controlleur;
+package Main.Controlleur.Workers;
 
 import Main.Modele.Batiment;
 import org.w3c.dom.Document;

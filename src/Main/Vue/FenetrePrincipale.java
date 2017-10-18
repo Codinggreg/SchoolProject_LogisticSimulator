@@ -1,4 +1,4 @@
-package Main.Simulation;
+package Main.Vue;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

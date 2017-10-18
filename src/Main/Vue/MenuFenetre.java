@@ -1,24 +1,10 @@
-package Main.Simulation;
+package Main.Vue;
 
 import Main.Controlleur.Actions.ChargerFichierXMLAction;
-import Main.Controlleur.XMLSimulationParser;
-import Main.Helpers.XMLHelper;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.IOException;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.filechooser.FileSystemView;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 public class MenuFenetre extends JMenuBar {
 

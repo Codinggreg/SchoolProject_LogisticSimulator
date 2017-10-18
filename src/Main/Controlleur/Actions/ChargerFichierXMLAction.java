@@ -1,7 +1,7 @@
 package Main.Controlleur.Actions;
 
-import Main.Controlleur.XMLSimulationParser;
-import Main.Simulation.Simulation;
+import Main.Controlleur.Workers.XMLSimulationParser;
+import Main.Simulation;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;

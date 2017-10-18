@@ -1,4 +1,4 @@
-package Main.Simulation;
+package Main.Vue;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;

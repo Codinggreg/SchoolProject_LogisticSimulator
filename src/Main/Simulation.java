@@ -1,13 +1,6 @@
-package Main.Simulation;
+package Main;
 
-import Main.Controlleur.Environnement;
-import Main.Controlleur.XMLSimulationParser;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.io.File;
+import Main.Controlleur.Workers.Environnement;
 
 public class Simulation {
     static Environnement environnement;
@@ -17,7 +10,7 @@ public class Simulation {
 	public static void main(String[] args) {
 
         environnement = new Environnement();
-		FenetrePrincipale fenetre = new FenetrePrincipale();
+		Simulation.FenetrePrincipale fenetre = new Simulation.FenetrePrincipale();
 
 
 
