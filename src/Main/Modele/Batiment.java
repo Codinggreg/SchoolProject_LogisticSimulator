@@ -1,5 +1,6 @@
 package Main.Modele;
 
+import java.awt.*;
 import java.util.HashMap;
 
 public abstract class Batiment extends Unite{
@@ -9,8 +10,9 @@ public abstract class Batiment extends Unite{
     private int _intervalCourant;
     private Batiment _destination;
 
-    public Batiment(int interval)
+    public Batiment(int interval,int id, Point position)
     {
+        super(id,position);
         _inventaire=new HashMap<>();
         this._intervalProd = interval;
         this._intervalCourant=0;

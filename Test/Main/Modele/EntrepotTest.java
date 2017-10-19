@@ -18,7 +18,7 @@ public class EntrepotTest {
     public void setUp() throws Exception {
         intervalProd=1;
         capacite=10;
-        entrepot=new Entrepot(intervalProd,capacite);
+        entrepot=new Entrepot(intervalProd,0,null,capacite);
         entrepot.ajouterTypeProduction(Avion.class.toString(),1);
     }
 

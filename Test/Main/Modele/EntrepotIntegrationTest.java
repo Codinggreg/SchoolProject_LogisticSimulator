@@ -16,7 +16,7 @@ public class EntrepotIntegrationTest {
     public void setUp() throws Exception {
         intervalProd=1;
         capacite=5;
-        entrepot=new Entrepot(intervalProd,capacite);
+        entrepot=new Entrepot(intervalProd,0,null,capacite);
         entrepot.ajouterTypeProduction(Avion.class.toString(),1);
     }
 

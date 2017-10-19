@@ -1,13 +1,15 @@
 package Main.Modele;
 
+import java.awt.*;
+
 public abstract class Usine extends Batiment{
 
     /***
      *
      * @param interval interval de temps requis pour produire une composante
      */
-    public Usine(int interval){
-        super(interval);
+    public Usine(int interval,int id,Point position){
+        super(interval,id,position);
     }
     public boolean isBonTour(){
         int intervalCourant=this.getIntervalCourant();

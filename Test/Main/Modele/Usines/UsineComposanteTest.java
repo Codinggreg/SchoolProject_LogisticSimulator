@@ -19,10 +19,10 @@ public class UsineComposanteTest {
     @Before
     public void setUp(){
         int interval=1;
-        usAile= new UsineAile(1);
-        usAvion= new UsineAvion(1);
-        usMoteur= new UsineMoteur(1);
-        usMetal= new UsineMatiere(1);
+        usAile= new UsineAile(1,0,null);
+        usAvion= new UsineAvion(1,0,null);
+        usMoteur= new UsineMoteur(1,0,null);
+        usMetal= new UsineMatiere(1,0,null);
     }
 
     @Test

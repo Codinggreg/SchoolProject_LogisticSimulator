@@ -18,7 +18,7 @@ public class BatimentTest {
         intervalProd=10;
         qtyAile=3;
         qtyMoteur=5;
-        usine=new UsineAvion(intervalProd);
+        usine=new UsineAvion(intervalProd,0,null);
         usine.ajouterTypeProduction(Moteur.class.toString(),qtyMoteur);
         usine.ajouterTypeProduction(Aile.class.toString(),qtyAile);
     }

@@ -24,7 +24,7 @@ public class UsineIntegrationTest {
         int_prod=10;
         composanteEntree = Metal.class.toString();
 
-        usAile=new UsineAile(int_prod);
+        usAile=new UsineAile(int_prod,0,null);
         usAile.ajouterTypeProduction(composanteEntree,QTY_MIN);
 
     }
@@ -87,14 +87,14 @@ public class UsineIntegrationTest {
     }
     @Test
     public void peutProduire_UsineMatiereProduitBonTour_SortieMetal(){
-        Batiment usMatiere=new UsineMatiere(int_prod);
+        Batiment usMatiere=new UsineMatiere(int_prod,0,null);
         usMatiere.ajouterTypeProduction(Metal.class.toString(),1);
         usMatiere.avancerTour(int_prod);
         assertThat(usMatiere.extraireSortie(),instanceOf(Metal.class));
     }
     @Test
     public void peutProduire_PasDeProductionDefinie_AucuneSortie(){
-        Batiment usMatiere=new UsineMatiere(int_prod);
+        Batiment usMatiere=new UsineMatiere(int_prod,0,null);
         usMatiere.avancerTour(int_prod);
         assertNull(usMatiere.extraireSortie());
     }

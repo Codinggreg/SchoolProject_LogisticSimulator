@@ -12,7 +12,7 @@ public class UsineTest {
     @Before
     public void setUp() throws Exception {
         intervalProd=1;
-        usine=new UsineAile(intervalProd);
+        usine=new UsineAile(intervalProd,0,null);
     }
 
     @Test

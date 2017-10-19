@@ -4,14 +4,17 @@ import Main.Modele.Usine;
 import Main.Modele.Composante;
 import Main.Modele.Composantes.Aile;
 
+import java.awt.*;
+
 public class UsineAile extends Usine {
 
 
-    public UsineAile(int interval) {
-        super(interval);
+    public UsineAile(int interval, int id, Point position) {
+        super(interval, id, position);
     }
+
     public Composante getTypeSortie(){
-        return new Aile();
+        return new Aile(0,this.get_position());
     }
 
 }
