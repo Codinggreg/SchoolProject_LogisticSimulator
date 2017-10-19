@@ -12,7 +12,12 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 
 public class ChargerFichierXMLAction extends AbstractAction implements PropertyChangeListener{
+    public ChargerFichierXMLAction(String name) {
+        super(name);
+    }
+
     @Override
+
     public void actionPerformed(ActionEvent e) {
         File file=selectionnerFichier();
         if(file != null)

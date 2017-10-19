@@ -1,8 +1,9 @@
 package Main.Vue.Icones;
 
 public enum TypeIcone {
-    UNTIERS,
+    UNTIER,
     DEUXTIERS,
     PLEIN,
     VIDE
+
 }

@@ -15,7 +15,7 @@ public class MenuFenetre extends JMenuBar {
 	private static final String MENU_SIMULATION_TITRE = "Simulation";
 	private static final String MENU_SIMULATION_CHOISIR = "Choisir";
 	private static final String MENU_AIDE_TITRE = "Aide";
-	private static final String MENU_AIDE_PROPOS = "� propos de...";
+	private static final String MENU_AIDE_PROPOS = "A propos de...";
 
 	public MenuFenetre() {
 		ajouterMenuFichier();
@@ -31,7 +31,7 @@ public class MenuFenetre extends JMenuBar {
 		JMenuItem menuCharger = new JMenuItem(MENU_FICHIER_CHARGER);
 		JMenuItem menuQuitter = new JMenuItem(MENU_FICHIER_QUITTER);
 
-		menuCharger.setAction(new ChargerFichierXMLAction());
+		menuCharger.setAction(new ChargerFichierXMLAction(MENU_FICHIER_CHARGER));
 		
 		menuQuitter.addActionListener((ActionEvent e) -> {
 			System.exit(0);

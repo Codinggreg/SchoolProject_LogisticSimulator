@@ -37,7 +37,7 @@ public class IconeBatiment implements Observer{
         }
         else if (statutInventaire<UNTIERS)
         {
-            icone=_images.get(TypeIcone.UNTIERS);
+            icone=_images.get(TypeIcone.UNTIER);
         }
         else if(statutInventaire>=UNTIERS && statutInventaire<DEUXTIERS){
             icone=_images.get(TypeIcone.DEUXTIERS);
