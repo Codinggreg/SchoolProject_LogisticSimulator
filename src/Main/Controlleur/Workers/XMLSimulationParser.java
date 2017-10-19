@@ -1,6 +1,12 @@
 package Main.Controlleur.Workers;
 
+import Main.Helpers.XMLHelper;
 import Main.Modele.Batiment;
+import Main.Modele.Entrepot;
+import Main.Modele.Usines.UsineAile;
+import Main.Modele.Usines.UsineAvion;
+import Main.Modele.Usines.UsineMatiere;
+import Main.Modele.Usines.UsineMoteur;
 import Main.Vue.Icones.TypeIcone;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -36,12 +42,17 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,Batiment>,S
 
     @Override
     protected HashMap<Integer,Batiment> doInBackground() throws Exception {
-        boolean temp=true;
+        HashMap<Integer,Batiment> temp=new HashMap<>();
         if(this._xmlFile==null){
             firePropertyChange("Error",null,"Aucun fichier Xml detecte.");
         }else
         {
-            HashMap<String,ChargeurType> types=getTypesBatiments(this._xmlFile);
+            Document doc=XMLHelper.getXMLFIle(this._xmlFile);
+            if(doc!=null){
+                HashMap<String,ChargeurType> types=getTypesBatiments(doc);
+                temp=chargerBatiments(types,doc);
+                setDestinationBatiments(temp,doc);
+            }
 
 
 
@@ -51,17 +62,76 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,Batiment>,S
         return null;
     }
 
-    private HashMap<String,ChargeurType> getTypesBatiments(File file){
-        HashMap<String,ChargeurType> temp=new HashMap<>();
-        Document doc=null;
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        try {
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            doc = dBuilder.parse(file);
-        }catch (ParserConfigurationException|IOException|SAXException e) {
-            e.printStackTrace();
+    private HashMap<Integer,Batiment> chargerBatiments(HashMap<String, ChargeurType> types,Document doc) {
+        HashMap<Integer,Batiment> temp=new HashMap<>();
+
+        Element simulation=(Element)doc.getDocumentElement().getElementsByTagName("simulation").item(0);
+        NodeList usines=simulation.getElementsByTagName("usine");
+        for (int i = 0; i < usines.getLength(); i++) {
+            Element usine=(Element)usines.item(i);
+            int id=Integer.parseInt(usine.getAttribute("id"));
+            int posx=Integer.parseInt(usine.getAttribute("x"));
+            int posy=Integer.parseInt(usine.getAttribute("y"));
+            String type=usine.getAttribute("type");
+
+            ChargeurType cType=types.get(type);
+            Batiment batiment=null;
+            switch (type){
+                case "usine-matiere":
+                {
+                    batiment=new UsineMatiere(cType._intervalProd,id,new Point(posx,posy));
+
+                    break;
+                }
+                case "usine-assemblage":{
+                    batiment=new UsineMatiere(cType._intervalProd,id,new Point(posx,posy));
+                    break;
+                }
+                case "usine-aile":{
+                    batiment=new UsineAile(cType._intervalProd,id,new Point(posx,posy));
+                    break;
+                }
+                case "usine-moteur":{
+                    batiment=new UsineMoteur(cType._intervalProd,id,new Point(posx,posy));
+                    break;
+                }
+                case "entrepot":{
+                    int capacite=cType._production.get("avion");
+                    cType._production.replace("avion",1);//remplace la production de avion par 1 pour les calculs d'inventaire
+                    batiment=new Entrepot(cType._intervalProd,id,new Point(posx,posy),capacite);
+                    break;
+                }
+            }
+            batiment.setProduction(cType.get_production());
+            temp.put(batiment.get_id(),batiment);
         }
-        if(doc!=null){
+
+        return temp;
+    }
+
+
+
+    private void setDestinationBatiments(HashMap<Integer,Batiment> batiments,Document doc){
+        Element simulation=(Element)doc.getDocumentElement().getElementsByTagName("simulation").item(0);
+        Element destinations=(Element)simulation.getElementsByTagName("chemins").item(0);
+        NodeList chemins=destinations.getElementsByTagName("chemin");
+        for (int i = 0; i < chemins.getLength(); i++) {
+            Element chemin=(Element)chemins.item(i);
+            int idDest=Integer.parseInt(chemin.getAttribute("vers"));
+            int idBat=Integer.parseInt(chemin.getAttribute("de"));
+            if(idDest>=00)//XOR
+            {
+                Batiment dest=batiments.get(idDest);
+                Batiment bat=batiments.get(idBat);
+                bat.set_destination(dest);
+            }
+
+        }
+    }
+    private HashMap<String,ChargeurType> getTypesBatiments(Document doc){
+        HashMap<String,ChargeurType> temp=new HashMap<>();
+
+
             doc.getDocumentElement().normalize();
 
             System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
@@ -90,8 +160,6 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,Batiment>,S
                     System.out.println(type.toString());
                 }
             }
-
-        }
         return temp;
     }
 
@@ -101,7 +169,11 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,Batiment>,S
         for (int i = 0; i < entrees.getLength(); i++) {
             Element ele=(Element)entrees.item(i);
             String type=ele.getAttribute("type");
-            int quantite=Integer.parseInt(ele.getAttribute("quantite"));
+            String prodNum=ele.getAttribute("quantite");
+            if(prodNum==""){
+                prodNum=ele.getAttribute("capacite");
+            }
+            int quantite=Integer.parseInt(prodNum);
             temp.put(type,quantite);
         }
 
@@ -134,9 +206,6 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,Batiment>,S
             }
         }
         return temp;
-    }
-    private void getBatimentsPosition(){
-
     }
 
     private class ChargeurType{

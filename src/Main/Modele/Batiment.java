@@ -1,5 +1,7 @@
 package Main.Modele;
 
+import Main.Controlleur.Workers.XMLSimulationParser;
+
 import java.awt.*;
 import java.util.HashMap;
 
@@ -10,14 +12,26 @@ public abstract class Batiment extends Unite{
     private int _intervalCourant;
     private Batiment _destination;
 
-    public Batiment(int interval,int id, Point position)
+    public Batiment get_destination() {
+        return _destination;
+    }
+
+    public void set_destination(Batiment _destination) {
+        this._destination = _destination;
+    }
+
+    public Batiment(int interval, int id, Point position)
     {
         super(id,position);
         _inventaire=new HashMap<>();
         this._intervalProd = interval;
         this._intervalCourant=0;
     }
-
+    public void setProduction(HashMap<String,Integer> productions) {
+        for(HashMap.Entry<String,Integer> entry: productions.entrySet()){
+            this.ajouterTypeProduction(entry.getKey(),entry.getValue());
+        }
+    }
     public int getIntervalProd() {
         return _intervalProd;
     }
