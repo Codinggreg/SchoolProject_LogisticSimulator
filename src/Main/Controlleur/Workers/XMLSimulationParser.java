@@ -2,6 +2,7 @@ package Main.Controlleur.Workers;
 
 import Main.Helpers.XMLHelper;
 import Main.Modele.Batiment;
+import Main.Modele.BatimentMetaData;
 import Main.Modele.Entrepot;
 import Main.Modele.Usines.UsineAile;
 import Main.Modele.Usines.UsineAvion;
@@ -29,7 +30,7 @@ import java.util.HashMap;
  * Code de chargement de fichier XML inspire de: http://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
  * Ce code assume que le fichier XML est valide
  */
-public class XMLSimulationParser extends SwingWorker<HashMap<Integer,Batiment>,String>  {
+public class XMLSimulationParser extends SwingWorker<HashMap<Integer,BatimentMetaData>,String>  {
 
 
 
@@ -41,15 +42,15 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,Batiment>,S
 
 
     @Override
-    protected HashMap<Integer,Batiment> doInBackground() throws Exception {
-        HashMap<Integer,Batiment> temp=new HashMap<>();
+    protected HashMap<Integer,BatimentMetaData> doInBackground() throws Exception {
+        HashMap<Integer,BatimentMetaData> temp=new HashMap<>();
         if(this._xmlFile==null){
             firePropertyChange("Error",null,"Aucun fichier Xml detecte.");
         }else
         {
             Document doc=XMLHelper.getXMLFIle(this._xmlFile);
             if(doc!=null){
-                HashMap<String,ChargeurType> types=getTypesBatiments(doc);
+                HashMap<String,BatimentMetaData> types=getTypesBatiments(doc);
                 temp=chargerBatiments(types,doc);
                 setDestinationBatiments(temp,doc);
             }
@@ -59,11 +60,11 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,Batiment>,S
         }
 
         firePropertyChange("State",null,StateValue.DONE);
-        return null;
+        return temp;
     }
 
-    private HashMap<Integer,Batiment> chargerBatiments(HashMap<String, ChargeurType> types,Document doc) {
-        HashMap<Integer,Batiment> temp=new HashMap<>();
+    private HashMap<Integer,BatimentMetaData> chargerBatiments(HashMap<String, BatimentMetaData> types,Document doc) {
+        HashMap<Integer,BatimentMetaData> temp=new HashMap<>();
 
         Element simulation=(Element)doc.getDocumentElement().getElementsByTagName("simulation").item(0);
         NodeList usines=simulation.getElementsByTagName("usine");
@@ -73,37 +74,8 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,Batiment>,S
             int posx=Integer.parseInt(usine.getAttribute("x"));
             int posy=Integer.parseInt(usine.getAttribute("y"));
             String type=usine.getAttribute("type");
-
-            ChargeurType cType=types.get(type);
-            Batiment batiment=null;
-            switch (type){
-                case "usine-matiere":
-                {
-                    batiment=new UsineMatiere(cType._intervalProd,id,new Point(posx,posy));
-
-                    break;
-                }
-                case "usine-assemblage":{
-                    batiment=new UsineMatiere(cType._intervalProd,id,new Point(posx,posy));
-                    break;
-                }
-                case "usine-aile":{
-                    batiment=new UsineAile(cType._intervalProd,id,new Point(posx,posy));
-                    break;
-                }
-                case "usine-moteur":{
-                    batiment=new UsineMoteur(cType._intervalProd,id,new Point(posx,posy));
-                    break;
-                }
-                case "entrepot":{
-                    int capacite=cType._production.get("avion");
-                    cType._production.replace("avion",1);//remplace la production de avion par 1 pour les calculs d'inventaire
-                    batiment=new Entrepot(cType._intervalProd,id,new Point(posx,posy),capacite);
-                    break;
-                }
-            }
-            batiment.setProduction(cType.get_production());
-            temp.put(batiment.get_id(),batiment);
+            BatimentMetaData meta=new BatimentMetaData(types.get(type),id,new Point(posx,posy));
+            temp.put(meta.ID,meta);
         }
 
         return temp;
@@ -111,7 +83,7 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,Batiment>,S
 
 
 
-    private void setDestinationBatiments(HashMap<Integer,Batiment> batiments,Document doc){
+    private void setDestinationBatiments(HashMap<Integer,BatimentMetaData> batiments,Document doc){
         Element simulation=(Element)doc.getDocumentElement().getElementsByTagName("simulation").item(0);
         Element destinations=(Element)simulation.getElementsByTagName("chemins").item(0);
         NodeList chemins=destinations.getElementsByTagName("chemin");
@@ -119,17 +91,15 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,Batiment>,S
             Element chemin=(Element)chemins.item(i);
             int idDest=Integer.parseInt(chemin.getAttribute("vers"));
             int idBat=Integer.parseInt(chemin.getAttribute("de"));
-            if(idDest>=00)//XOR
+            if(idDest>=0)
             {
-                Batiment dest=batiments.get(idDest);
-                Batiment bat=batiments.get(idBat);
-                bat.set_destination(dest);
+                BatimentMetaData bat=batiments.get(idBat);
+                bat.IDDestination=idDest;
             }
-
         }
     }
-    private HashMap<String,ChargeurType> getTypesBatiments(Document doc){
-        HashMap<String,ChargeurType> temp=new HashMap<>();
+    private HashMap<String,BatimentMetaData> getTypesBatiments(Document doc){
+        HashMap<String,BatimentMetaData> temp=new HashMap<>();
 
 
             doc.getDocumentElement().normalize();
@@ -140,24 +110,27 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,Batiment>,S
             NodeList usines=metadonnees.getChildNodes();
 
             for (int i = 0; i < usines.getLength(); i++) {
-                ChargeurType type=new ChargeurType();
+                BatimentMetaData type=new BatimentMetaData();
                 Node n = usines.item(i);
                 if (n.getNodeType() == Node.ELEMENT_NODE) {
                     Element ele = (Element) n;
 
-                    type.set_typeBatiment(ele.getAttribute("type"));
+                    type.Type=ele.getAttribute("type");
 
                     Element icones=(Element)ele.getElementsByTagName("icones").item(0);
-                    type.set_icones(getIcones(icones.getElementsByTagName("icone")));
+                    type.Icones=getIcones(icones.getElementsByTagName("icone"));
 
                     Element interval=(Element)ele.getElementsByTagName("interval-production").item(0);
-                    type.set_intervalProd(Integer.parseInt(interval.getTextContent()));
+                    if(interval!=null){
+                        type.IntervalProd=Integer.parseInt(interval.getTextContent());
+                    }
+
+
 
                     NodeList entrees=ele.getElementsByTagName("entree");
-                    type.set_production(getListeProduction(entrees));
+                    type.Production=getListeProduction(entrees);
 
-                    temp.put(type.get_typeBatiment(),type);
-                    System.out.println(type.toString());
+                    temp.put(type.Type,type);
                 }
             }
         return temp;

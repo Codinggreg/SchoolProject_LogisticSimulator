@@ -10,19 +10,20 @@ import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.util.concurrent.ExecutionException;
 
 public class ChargerFichierXMLAction extends AbstractAction implements PropertyChangeListener{
+    XMLSimulationParser xmlWorker;
     public ChargerFichierXMLAction(String name) {
         super(name);
     }
 
     @Override
-
     public void actionPerformed(ActionEvent e) {
         File file=selectionnerFichier();
         if(file != null)
         {
-            XMLSimulationParser xmlWorker=new XMLSimulationParser(file);
+            xmlWorker=new XMLSimulationParser(file);
             xmlWorker.addPropertyChangeListener(this);
             xmlWorker.execute();
         }
@@ -57,7 +58,11 @@ public class ChargerFichierXMLAction extends AbstractAction implements PropertyC
                     case DONE: {
 
                         System.out.println("Chargement Fichier Fini");
-                        Simulation.rechargerEnvironnement();
+                        try {
+                            Simulation.rechargerEnvironnement(xmlWorker.get());
+                        } catch (InterruptedException|ExecutionException e) {
+                            e.printStackTrace();
+                        }
                         break;
                     }
                 }

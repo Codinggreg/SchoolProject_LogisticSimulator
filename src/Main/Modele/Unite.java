@@ -5,14 +5,14 @@ import java.awt.*;
 import java.util.Observable;
 
 public abstract class Unite extends Observable {
-    private int _id;
+    private Integer _id;
     private Point _position;
 
-    public int get_id() {
+    public Integer get_id() {
         return _id;
     }
 
-    public void set_id(int _id) {
+    public void set_id(Integer _id) {
         this._id = _id;
     }
 
