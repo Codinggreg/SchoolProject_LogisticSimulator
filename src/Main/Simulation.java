@@ -40,11 +40,19 @@ public class Simulation {
                 batiments.put(entry.getKey(), chargerBatiment(entry.getValue()));
             }
         }
-
+        attribuerDestination(batiments,metaData);
         environnement=new Environnement(batiments);
         environnement.addPropertyChangeListener(fenetre);
         environnement.execute();
 
+    }
+    private static void attribuerDestination(HashMap<Integer, Batiment> batiments,HashMap<Integer,BatimentMetaData> metaData){
+	    metaData.forEach((key,value)->{
+	        if(value.IDDestination>0)
+            {
+                batiments.get(key).set_destination(batiments.get(value.IDDestination));
+            }
+        });
     }
     private static Batiment chargerBatiment(BatimentMetaData data){
 
@@ -78,7 +86,6 @@ public class Simulation {
         if(!data.Production.isEmpty()){
             batiment.setProduction(data.Production);
         }
-
         return batiment;
     }
 }
