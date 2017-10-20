@@ -19,7 +19,7 @@ public class Entrepot extends Batiment{
     }
 
     @Override
-    public int getStatutInventaire() {
+    public int getStatut() {
 
         return (int)((double)getQuantiteInventaire(Avion.class.toString())/this._capacite*100);
     }
@@ -33,11 +33,12 @@ public class Entrepot extends Batiment{
             notifyObservers();
         }
     }
+
     public boolean estPlein(){
         return this.getQuantiteInventaire(Avion.class.toString())==this._capacite;
     }
     @Override
-    protected boolean peutProduire() {
+    protected boolean peutExtraire() {
         return isInventaireSuffisant();
     }
 }

@@ -1,8 +1,6 @@
 package Main.Modele;
 
-import Main.Modele.Composantes.Aile;
 import Main.Modele.Composantes.Avion;
-import Main.Modele.Composantes.Moteur;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,29 +31,29 @@ public class EntrepotTest {
         assertTrue(entrepot.estPlein());
     }
     @Test
-    public void getStatutInventaire_Plein() throws Exception {
+    public void getStatut_InventairePlein_Vrai() throws Exception {
         entrepot.ajouterInventaire(Avion.class.toString(),capacite);
-        assertEquals(100,entrepot.getStatutInventaire());
+        assertEquals(100,entrepot.getStatut());
     }
     @Test
-    public void getStatutInventaire_UnTiers() throws Exception {
+    public void getStatut_Inventaire_UnTiers() throws Exception {
         entrepot.ajouterInventaire(Avion.class.toString(),capacite/3+1);
-        assertTrue(entrepot.getStatutInventaire()>=33 && entrepot.getStatutInventaire()<66);
+        assertTrue(entrepot.getStatut()>=33 && entrepot.getStatut()<66);
     }
     @Test
-    public void getStatutInventaire_DeuxTiers() throws Exception {
+    public void getStatut_Inventaire_DeuxTiers() throws Exception {
         entrepot.ajouterInventaire(Avion.class.toString(),capacite*2/3+1);
-        assertTrue(entrepot.getStatutInventaire()>=66);
+        assertTrue(entrepot.getStatut()>=66);
     }
     @Test
-    public void getStatutInventaire_Vide() throws Exception {
+    public void getStatut_Inventaire_Vide() throws Exception {
 
-        assertEquals(0,entrepot.getStatutInventaire());
+        assertEquals(0,entrepot.getStatut());
     }
     @Test
-    public void getStatutInventaire_MoinsQueUnTiers() throws Exception {
+    public void getStatut_Inventaire_MoinsQueUnTiers() throws Exception {
         //capacite doit etre >3
         entrepot.ajouterInventaire(Avion.class.toString(),capacite/3);
-        assertTrue(entrepot.getStatutInventaire()<33&&entrepot.getStatutInventaire()>0);
+        assertTrue(entrepot.getStatut()<33&&entrepot.getStatut()>0);
     }
 }

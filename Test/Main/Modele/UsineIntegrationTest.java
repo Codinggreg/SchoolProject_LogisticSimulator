@@ -1,6 +1,8 @@
 package Main.Modele;
 
+import Main.Modele.Composantes.Aile;
 import Main.Modele.Composantes.Metal;
+import Main.Modele.Composantes.Moteur;
 import Main.Modele.Usines.UsineAile;
 import Main.Modele.Usines.UsineMatiere;
 import org.junit.Before;
@@ -30,6 +32,14 @@ public class UsineIntegrationTest {
     }
 
     @Test
+    public void avancerTour_CourantEtProdEgaux_DifferenceZero(){
+        usAile.ajouterInventaire(composanteEntree,QTY_MIN);
+        usAile.avancerTour(int_prod);
+        assertEquals(0,usAile.getIntervalCourant()-usAile.getIntervalProd());
+    }
+
+
+    @Test
     public void EnleverDeInventaire_UsineAInventaireRetraitPlusGrandInventaire_InventaireEstZero(){
         int ajoutInventaire=4;
         int retraitInventaire=-5;
@@ -48,15 +58,6 @@ public class UsineIntegrationTest {
         usAile.extraireSortie();
 
         assertEquals(ajoutInventaire-QTY_MIN,usAile.getQuantiteInventaire(composanteEntree));
-    }
-    @Test
-    public void PasDeProductionSiInventaireInsuffisant_UsineContientpeuInventaire_UsineNeProduitPas(){
-        int ajoutInventaire=3;
-
-        usAile.gererAjout(composanteEntree,ajoutInventaire);
-        usAile.avancerTour(int_prod);
-
-        assertNull(usAile.extraireSortie());
     }
     @Test
     public void usineNeProduitPasSiPasAssezDeTemps_UsineAInventaireSuffisantAuPremierTour_UsineNeProduitPas(){
@@ -85,17 +86,11 @@ public class UsineIntegrationTest {
         assertNotNull(usAile.extraireSortie());
 
     }
+
     @Test
     public void peutProduire_UsineMatiereProduitBonTour_SortieMetal(){
         Batiment usMatiere=new UsineMatiere(int_prod,0,null);
-        usMatiere.ajouterTypeProduction(Metal.class.toString(),1);
         usMatiere.avancerTour(int_prod);
         assertThat(usMatiere.extraireSortie(),instanceOf(Metal.class));
-    }
-    @Test
-    public void peutProduire_PasDeProductionDefinie_AucuneSortie(){
-        Batiment usMatiere=new UsineMatiere(int_prod,0,null);
-        usMatiere.avancerTour(int_prod);
-        assertNull(usMatiere.extraireSortie());
     }
 }

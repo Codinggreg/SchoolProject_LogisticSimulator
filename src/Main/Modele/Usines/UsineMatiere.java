@@ -9,6 +9,7 @@ import java.awt.*;
 public class UsineMatiere extends Usine {
     public UsineMatiere(int interval, int id, Point position) {
         super(interval, id, position);
+        this.setEnProduction(true);
     }
 
     @Override
@@ -17,7 +18,7 @@ public class UsineMatiere extends Usine {
     }
 
     @Override
-    protected boolean peutProduire() {
-        return isBonTour()&&isProductionDefinie();
+    protected void ajusterInventaire() {
+        set_intervalCourant(0);
     }
 }

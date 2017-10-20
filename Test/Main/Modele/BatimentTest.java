@@ -23,24 +23,12 @@ public class BatimentTest {
         usine.ajouterTypeProduction(Aile.class.toString(),qtyAile);
     }
     @Test
-    public void nomTemporaire(){
+    public void extraireSortie_PeutPasProduire_Faux(){
         usine.avancerTour(intervalProd);
-        usine.ajouterInventaire(Aile.class.toString(),qtyAile);
-        usine.ajouterInventaire(Moteur.class.toString(),qtyMoteur);
         assertNull(usine.extraireSortie());
     }
-    @Test
-    public void avancerTour_CourantEtProdEgaux_DifferenceZero(){
-        usine.ajouterInventaire(Aile.class.toString(),qtyAile);
-        usine.ajouterInventaire(Moteur.class.toString(),qtyMoteur);
-        usine.avancerTour(intervalProd);
-        assertEquals(0,usine.getIntervalCourant()-usine.getIntervalProd());
-    }
-    @Test
-    public void avancerTour_CourantProdPlusUn_CourantUn(){
-        usine.avancerTour(1+intervalProd);
-        assertEquals(1,usine.getIntervalCourant());
-    }
+
+    //region isInventaireSuffisant
     @Test
     public void isInventaireSuffisant_InventaireSuffisant_True() throws Exception {
         usine.gererAjout(Moteur.class.toString(),qtyMoteur);
@@ -59,6 +47,9 @@ public class BatimentTest {
         usine.gererAjout(Aile.class.toString(),qtyAile);
         assertFalse(usine.isInventaireSuffisant());
     }
+    //endregion\
+
+    //region ajouterInventaire
     @Test
     public void ajouterInventaire_AjouterUneComposante_Unecomposante(){
         usine.gererAjout(Moteur.class.toString(),qtyMoteur);
@@ -72,33 +63,7 @@ public class BatimentTest {
 
         assertEquals(-1,usine.getQuantiteInventaire(classeNonSupportee));
     }
+    //endregion
 
-    @Test
-    public void getStatutInventaire_Plein() throws Exception {
-        usine.ajouterInventaire(Aile.class.toString(),qtyAile);
-        usine.ajouterInventaire(Moteur.class.toString(),qtyMoteur);
-        assertEquals(100,usine.getStatutInventaire());
-    }
-    @Test
-    public void getStatutInventaire_UnTiers() throws Exception {
-        usine.ajouterInventaire(Aile.class.toString(),qtyAile);
-        usine.ajouterInventaire(Moteur.class.toString(),qtyMoteur/3);
-        assertTrue(usine.getStatutInventaire()>=33 && usine.getStatutInventaire()<66);
-    }
-    @Test
-    public void getStatutInventaire_DeuxTiers() throws Exception {
-        usine.ajouterInventaire(Aile.class.toString(),qtyAile);
-        usine.ajouterInventaire(Moteur.class.toString(),qtyMoteur-1);
-        assertTrue(usine.getStatutInventaire()>=66);
-    }
-    @Test
-    public void getStatutInventaire_Vide() throws Exception {
 
-        assertEquals(0,usine.getStatutInventaire());
-    }
-    @Test
-    public void getStatutInventaire_MoinsQueUnTiers() throws Exception {
-        usine.ajouterInventaire(Moteur.class.toString(),qtyMoteur/3);
-        assertTrue(usine.getStatutInventaire()<33&&usine.getStatutInventaire()>0);
-    }
 }

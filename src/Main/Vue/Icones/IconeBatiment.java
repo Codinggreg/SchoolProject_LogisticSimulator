@@ -31,7 +31,7 @@ public class IconeBatiment implements Observer{
     }
     private ImageIcon choisirIcone(){
         ImageIcon icone=null;
-        int statutInventaire=_modele.getStatutInventaire();
+        int statutInventaire=_modele.getStatut();
         if(statutInventaire==VIDE) {
             icone=_images.get(TypeIcone.VIDE);
         }
