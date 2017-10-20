@@ -12,6 +12,7 @@ public abstract class Batiment extends Unite{
     private int _intervalCourant;
     private Batiment _destination;
 
+
     public Batiment get_destination() {
         return _destination;
     }

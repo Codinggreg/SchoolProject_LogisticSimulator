@@ -1,29 +1,16 @@
 package Main.Controlleur.Workers;
 
 import Main.Helpers.XMLHelper;
-import Main.Modele.Batiment;
 import Main.Modele.BatimentMetaData;
-import Main.Modele.Entrepot;
-import Main.Modele.Usines.UsineAile;
-import Main.Modele.Usines.UsineAvion;
-import Main.Modele.Usines.UsineMatiere;
-import Main.Modele.Usines.UsineMoteur;
 import Main.Vue.Icones.TypeIcone;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import javax.swing.*;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Formatter;
 import java.util.HashMap;
 
 /**
@@ -179,86 +166,5 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,BatimentMet
             }
         }
         return temp;
-    }
-
-    private class ChargeurType{
-        private HashMap<TypeIcone,ImageIcon> _icones;
-        private HashMap<String,Integer> _production;
-        private String _typeBatiment;
-        private int _intervalProd;
-
-        public int get_intervalProd() {
-            return _intervalProd;
-        }
-
-        public void set_intervalProd(int _intervalProd) {
-            this._intervalProd = _intervalProd;
-        }
-
-
-
-        public HashMap<TypeIcone, ImageIcon> get_icones() {
-            return _icones;
-        }
-
-        public void set_icones(HashMap<TypeIcone, ImageIcon> _icones) {
-            this._icones = _icones;
-        }
-
-
-        public HashMap<String, Integer> get_production() {
-            return _production;
-        }
-
-        public void set_production(HashMap<String, Integer> _production) {
-            this._production = _production;
-        }
-
-        public String get_typeBatiment() {
-            return _typeBatiment;
-        }
-
-        public void set_typeBatiment(String _typeBatiment) {
-            this._typeBatiment = _typeBatiment;
-        }
-
-        @Override
-        public String toString() {
-            StringBuilder string=new StringBuilder();
-            string.append("Type:{\n");
-            Formatter format=new Formatter(string);
-
-            format.format(" Type:    %s\n",this._typeBatiment);
-            format.format(" IntervalProd:   %d\n",this._intervalProd);
-
-            format.format(" Icones:{\n");
-            for(HashMap.Entry<TypeIcone, ImageIcon> entry : _icones.entrySet()) {
-                TypeIcone key = entry.getKey();
-                ImageIcon value = entry.getValue();
-                String nomImage=new File(value.getDescription()).getName();
-
-                format.format("  Icone:{\n");
-                format.format("   Type: %s\n",key.toString());
-                format.format("   Nom: %s\n",nomImage);
-                format.format("  }\n");
-            }
-            format.format(" }\n");
-
-            format.format(" Production:{\n");
-            for(HashMap.Entry<String,Integer> entry: _production.entrySet()){
-                String type=entry.getKey();
-                Integer quantite=entry.getValue();
-
-                format.format("  Entree:{\n");
-                format.format("   Type: %s\n",type);
-                format.format("   Quantite: %d\n",quantite);
-                format.format("  }\n");
-            }
-            format.format(" }\n");
-
-
-            string.append("}");
-            return string.toString();
-        }
     }
 }

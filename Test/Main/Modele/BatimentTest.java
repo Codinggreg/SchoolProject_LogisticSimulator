@@ -23,7 +23,16 @@ public class BatimentTest {
         usine.ajouterTypeProduction(Aile.class.toString(),qtyAile);
     }
     @Test
+    public void nomTemporaire(){
+        usine.avancerTour(intervalProd);
+        usine.ajouterInventaire(Aile.class.toString(),qtyAile);
+        usine.ajouterInventaire(Moteur.class.toString(),qtyMoteur);
+        assertNull(usine.extraireSortie());
+    }
+    @Test
     public void avancerTour_CourantEtProdEgaux_DifferenceZero(){
+        usine.ajouterInventaire(Aile.class.toString(),qtyAile);
+        usine.ajouterInventaire(Moteur.class.toString(),qtyMoteur);
         usine.avancerTour(intervalProd);
         assertEquals(0,usine.getIntervalCourant()-usine.getIntervalProd());
     }

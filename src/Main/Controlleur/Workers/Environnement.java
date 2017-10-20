@@ -39,6 +39,7 @@ public class Environnement extends SwingWorker<Object, String>{
 	protected Object doInBackground() throws Exception {
 		while(actif) {
 			Thread.sleep(DELAI);
+
 			/**
 			 * C'est ici que vous aurez � faire la gestion de la notion de tour.
 			 */
