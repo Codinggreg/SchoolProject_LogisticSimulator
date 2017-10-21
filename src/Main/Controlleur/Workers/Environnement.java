@@ -27,6 +27,7 @@ public class Environnement extends SwingWorker<Object, String>{
 
 	public Environnement(HashMap<Integer, Batiment> batiments) {
 		super();
+		this._batiments=new HashMap<>();
 		if(!batiments.isEmpty()) {
             this._batiments = batiments;
             this._entrepots = new HashMap<>();
@@ -51,9 +52,12 @@ public class Environnement extends SwingWorker<Object, String>{
 	protected Object doInBackground() throws Exception {
 		while(actif) {
 			Thread.sleep(DELAI);
+
             _batiments.values().stream().filter(p->p instanceof Usine).forEach(p->p.avancerTour(AVANCEMENT_TOUR));
             _composantes.forEach(Composante::avancer);
             _composantes.forEach(p->verifierCollisions(p));
+
+
             //_batiments.values().stream().filter(p->p instanceof Entrepot).forEach(p->p.);
 			/**
 			 * C'est ici que vous aurez � faire la gestion de la notion de tour.
