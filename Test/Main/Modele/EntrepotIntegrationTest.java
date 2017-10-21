@@ -1,13 +1,12 @@
 package Main.Modele;
 
-import Main.Modele.Composantes.Avion;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.*;
 
 public class EntrepotIntegrationTest {
+    public static final String TYPE_COMPOSANTE = "avion";
     Entrepot entrepot;
     int intervalProd;
     int capacite;
@@ -17,13 +16,14 @@ public class EntrepotIntegrationTest {
         intervalProd=1;
         capacite=5;
         entrepot=new Entrepot(intervalProd,0,null,capacite);
-        entrepot.ajouterTypeProduction(Avion.class.toString(),1);
+        entrepot.ajouterTypeProduction(TYPE_COMPOSANTE,1);
     }
 
     @Test
     public void PeutProduire_UnAvion_Vrai() throws Exception {
-        entrepot.ajouterInventaire(Avion.class.toString(),1);
-        assertThat(entrepot.extraireSortie(),instanceOf(Avion.class));
+        entrepot.ajouterInventaire(TYPE_COMPOSANTE,1);
+
+        assertEquals(TYPE_COMPOSANTE,entrepot.extraireSortie().get_type());
     }
     @Test
     public void PeutProduire_AucunAvion_Faux() throws Exception {

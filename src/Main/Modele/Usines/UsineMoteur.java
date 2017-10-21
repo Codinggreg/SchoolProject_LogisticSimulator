@@ -1,12 +1,9 @@
 package Main.Modele.Usines;
 
-import Main.Modele.Composantes.Moteur;
 import Main.Modele.Usine;
 import Main.Modele.Composante;
 
 import java.awt.*;
-import java.util.Observable;
-import java.util.Observer;
 
 public class UsineMoteur extends Usine{
     public UsineMoteur(int interval, int id, Point position) {
@@ -14,8 +11,8 @@ public class UsineMoteur extends Usine{
     }
 
     @Override
-    public Composante getTypeSortie() {
-        return new Moteur(0,this.get_position());
+    public Composante getComposante() {
+        return new Composante(0,this.get_position(),"moteur");
     }
 
 

@@ -8,7 +8,7 @@ public abstract class Batiment extends Unite {
     protected HashMap<String, Production> _inventaire;
     private int _intervalProd;
     private int _intervalCourant;
-    private Batiment _destination;
+
     private boolean _enProduction;
 
     public Batiment(int interval, int id, Point position) {
@@ -19,13 +19,7 @@ public abstract class Batiment extends Unite {
         _enProduction = false;
     }
 
-    public Batiment get_destination() {
-        return _destination;
-    }
 
-    public void set_destination(Batiment _destination) {
-        this._destination = _destination;
-    }
 
     public void setProduction(HashMap<String, Integer> productions) {
         for (HashMap.Entry<String, Integer> entry : productions.entrySet()) {
@@ -79,7 +73,7 @@ public abstract class Batiment extends Unite {
     }
     public abstract int getStatut();
 
-    public abstract Composante getTypeSortie();
+    public abstract Composante getComposante();
 
     protected abstract boolean peutExtraire();
 
@@ -87,7 +81,7 @@ public abstract class Batiment extends Unite {
         if (peutExtraire()) {
             ajusterInventaire();
             verifierPeutProduire();
-            return getTypeSortie();
+            return getComposante();
         }
         return null;
     }

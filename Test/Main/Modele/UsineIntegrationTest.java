@@ -1,14 +1,10 @@
 package Main.Modele;
 
-import Main.Modele.Composantes.Aile;
-import Main.Modele.Composantes.Metal;
-import Main.Modele.Composantes.Moteur;
 import Main.Modele.Usines.UsineAile;
 import Main.Modele.Usines.UsineMatiere;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -24,7 +20,7 @@ public class UsineIntegrationTest {
     public void Setup()
     {
         int_prod=10;
-        composanteEntree = Metal.class.toString();
+        composanteEntree = "metal";
 
         usAile=new UsineAile(int_prod,0,null);
         usAile.ajouterTypeProduction(composanteEntree,QTY_MIN);
@@ -91,6 +87,6 @@ public class UsineIntegrationTest {
     public void peutProduire_UsineMatiereProduitBonTour_SortieMetal(){
         Batiment usMatiere=new UsineMatiere(int_prod,0,null);
         usMatiere.avancerTour(int_prod);
-        assertThat(usMatiere.extraireSortie(),instanceOf(Metal.class));
+        assertEquals("metal",usMatiere.extraireSortie().get_type());
     }
 }

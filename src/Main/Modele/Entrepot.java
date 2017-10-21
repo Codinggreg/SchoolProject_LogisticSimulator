@@ -1,12 +1,10 @@
 package Main.Modele;
 
-import Main.Modele.Composantes.Avion;
-
 import java.awt.*;
 
 public class Entrepot extends Batiment{
     private int _capacite;
-
+    private final String TYPE_COMPOSANTE="avion";
 
     public Entrepot(int interval, int id, Point position, int _capacite) {
         super(interval, id, position);
@@ -14,14 +12,14 @@ public class Entrepot extends Batiment{
     }
 
     @Override
-    public Composante getTypeSortie() {
-        return new Avion(0,this.get_position());
+    public Composante getComposante() {
+        return new Composante(0,this.get_position(),"avion");
     }
 
     @Override
     public int getStatut() {
 
-        return (int)((double)getQuantiteInventaire(Avion.class.toString())/this._capacite*100);
+        return (int)((double)getQuantiteInventaire(TYPE_COMPOSANTE)/this._capacite*100);
     }
 
     @Override
@@ -35,7 +33,7 @@ public class Entrepot extends Batiment{
     }
 
     public boolean estPlein(){
-        return this.getQuantiteInventaire(Avion.class.toString())==this._capacite;
+        return this.getQuantiteInventaire(TYPE_COMPOSANTE)==this._capacite;
     }
     @Override
     protected boolean peutExtraire() {

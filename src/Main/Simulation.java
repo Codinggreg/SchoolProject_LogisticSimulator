@@ -39,8 +39,9 @@ public class Simulation {
             for (HashMap.Entry<Integer, BatimentMetaData> entry : metaData.entrySet()) {
                 batiments.put(entry.getKey(), chargerBatiment(entry.getValue()));
             }
+            attribuerDestination(batiments,metaData);
         }
-        attribuerDestination(batiments,metaData);
+
         environnement=new Environnement(batiments);
         environnement.addPropertyChangeListener(fenetre);
         environnement.execute();
