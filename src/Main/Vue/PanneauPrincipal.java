@@ -1,9 +1,15 @@
 package Main.Vue;
 
+import Main.Vue.Icones.IconeBatiment;
+import Main.Vue.Icones.IconeComposante;
+
 import java.awt.Graphics;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class PanneauPrincipal extends JPanel {
 
@@ -13,13 +19,35 @@ public class PanneauPrincipal extends JPanel {
 	private Point position = new Point(0,0);
 	private Point vitesse = new Point(1,1);
 	private int taille = 32;
-	
+    private ArrayList<IconeComposante> _composantes;
+	private ArrayList<IconeBatiment> _batiments;
+
+	PanneauPrincipal(){
+	    this._batiments=new ArrayList<>();
+	    this._composantes=new ArrayList<>();
+    }
+
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		// On ajoute � la position le delta x et y de la vitesse
-		position.translate(vitesse.x, vitesse.y);
-		g.fillRect(position.x, position.y, taille, taille);
+
+		for(Iterator<IconeComposante> ite=_composantes.iterator();ite.hasNext();){
+		    IconeComposante comp=ite.next();
+		    if(comp.peutEnlever()) {
+		        comp.setModel(null);
+                ite.remove();
+            }else{
+		        comp.dessiner(g);
+            }
+        }
+        _batiments.forEach(p->p.dessiner(g));
+    }
+
+	void ajouterComposante(IconeComposante ico) {
+	    _composantes.add(ico);
 	}
 
+    public void setBatiments(ArrayList<IconeBatiment> batiments) {
+        this._batiments = batiments;
+    }
 }

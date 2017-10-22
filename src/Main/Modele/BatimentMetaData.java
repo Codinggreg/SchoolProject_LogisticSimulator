@@ -14,6 +14,7 @@ public class BatimentMetaData {
     public HashMap<TypeIcone,ImageIcon> Icones;
     public HashMap<String,Integer> Production;
     public int IntervalProd;
+    public Batiment Batiment;
     public BatimentMetaData(BatimentMetaData type, int id, Point point){
         this.Type=type.Type;
         this.Icones=type.Icones;
@@ -23,4 +24,5 @@ public class BatimentMetaData {
         this.ID=id;
     }
     public BatimentMetaData(){}
+
 }

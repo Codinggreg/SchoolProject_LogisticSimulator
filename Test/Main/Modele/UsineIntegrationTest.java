@@ -5,6 +5,8 @@ import Main.Modele.Usines.UsineMatiere;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -14,6 +16,7 @@ public class UsineIntegrationTest {
     private Usine usAile;
     private final int QTY_MIN=4;
     int int_prod;
+    Batiment dest;
     String composanteEntree;
 
     @Before
@@ -22,9 +25,10 @@ public class UsineIntegrationTest {
         int_prod=10;
         composanteEntree = "metal";
 
-        usAile=new UsineAile(int_prod,0,null);
+        usAile=new UsineAile(int_prod,0,new Point(0,0));
         usAile.ajouterTypeProduction(composanteEntree,QTY_MIN);
-
+        dest=new Entrepot(int_prod,1,new Point(0,0),2);
+        usAile.set_destination(dest);
     }
 
     @Test
@@ -87,6 +91,7 @@ public class UsineIntegrationTest {
     public void peutProduire_UsineMatiereProduitBonTour_SortieMetal(){
         Batiment usMatiere=new UsineMatiere(int_prod,0,null);
         usMatiere.avancerTour(int_prod);
+        usMatiere.set_destination(dest);
         assertEquals("metal",usMatiere.extraireSortie().get_type());
     }
 }

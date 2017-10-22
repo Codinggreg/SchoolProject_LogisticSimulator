@@ -5,6 +5,7 @@ import Main.Modele.Batiment;
 import Main.Modele.BatimentMetaData;
 import Main.Modele.Entrepot;
 import Main.Modele.Usines.UsineAile;
+import Main.Modele.Usines.UsineAvion;
 import Main.Modele.Usines.UsineMatiere;
 import Main.Modele.Usines.UsineMoteur;
 import Main.Vue.FenetrePrincipale;
@@ -33,13 +34,13 @@ public class Simulation {
 
         if (environnement != null && !environnement.isCancelled()) {
             environnement.cancel(true);
-            System.out.println("Environnement termine");
         }
         if (metaData != null && !metaData.isEmpty()){
             for (HashMap.Entry<Integer, BatimentMetaData> entry : metaData.entrySet()) {
                 batiments.put(entry.getKey(), chargerBatiment(entry.getValue()));
             }
             attribuerDestination(batiments,metaData);
+            fenetre.ajouterBatiments(metaData);
         }
 
         environnement=new Environnement(batiments);
@@ -62,11 +63,10 @@ public class Simulation {
             case "usine-matiere":
             {
                 batiment=new UsineMatiere(data.IntervalProd,data.ID,data.Position);
-
                 break;
             }
             case "usine-assemblage":{
-                batiment=new UsineMatiere(data.IntervalProd,data.ID,data.Position);
+                batiment=new UsineAvion(data.IntervalProd,data.ID,data.Position);
                 break;
             }
             case "usine-aile":{
@@ -84,6 +84,7 @@ public class Simulation {
                 break;
             }
         }
+        data.Batiment=batiment;
         if(!data.Production.isEmpty()){
             batiment.setProduction(data.Production);
         }

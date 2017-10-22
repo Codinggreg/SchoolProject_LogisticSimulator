@@ -144,7 +144,7 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,BatimentMet
         HashMap<TypeIcone,ImageIcon> temp=new HashMap<>();
         for (int i = 0; i < l.getLength(); i++) {
             Element item=(Element)l.item(i);
-            ImageIcon icone=new ImageIcon(item.getAttribute("path"));
+            ImageIcon icone=new ImageIcon(getClass().getClassLoader().getResource(item.getAttribute("path")));
 
             switch (item.getAttribute("type")){
                 case "un-tier":{

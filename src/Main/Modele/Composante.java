@@ -6,11 +6,21 @@ import java.util.Vector;
 public class Composante extends Unite{
     private Point _vitesse;
     private String _type;
+    private boolean _peutEnlever;
+
+    public boolean is_peutEnlever() {
+        return _peutEnlever;
+    }
+
+    public void set_peutEnlever(boolean _peutEnlever) {
+        this._peutEnlever = _peutEnlever;
+    }
 
     public Composante(int _id, Point _position, String type) {
         super(_id, _position);
         this._type=type;
         this._vitesse = null;//TODO:Calculer Vitesse selon position de destination et origine;
+        this._peutEnlever=false;
     }
     public String get_type(){
         return this._type;
@@ -32,11 +42,14 @@ public class Composante extends Unite{
         double distancey=destination.y-this.get_position().y;
         double distance=this.get_position().distance(destination);
 
-        Point vitesse=new Point((int)(distancex/distance),(int)(distancey/distance));
+        Point vitesse=new Point((int)(Math.round(distancex/distance)),(int)(Math.round(distancey/distance)));
         return vitesse;
     }
     public boolean arriveADestination() {
-        return this.get_position().equals(this.get_destination().get_position());
+
+
+        double distance=this.get_position().distance(this.get_destination().get_position());
+        return distance>-1&&distance<1;
     }
 
     public void setVitesse(int x, int y) {

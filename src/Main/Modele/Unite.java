@@ -31,9 +31,13 @@ public abstract class Unite extends Observable {
     public void set_destination(Batiment _destination) {
         this._destination = _destination;
     }
-    public Unite(int _id, Point _position) {
+    public Unite(int _id, Point position) {
         this._id = _id;
-
-        this._position = _position;
+        if(position==null){
+            this._position=new Point(0,0);
+        }else
+        {
+            this._position=new Point(position.x,position.y);
+        }
     }
 }

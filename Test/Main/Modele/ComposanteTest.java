@@ -41,5 +41,12 @@ public class ComposanteTest {
         Point vitesse=composante.calculerVitesse(usine.get_position());
         assertEquals(new Point(1,0),vitesse);
     }
+    @Test
+    public void calculerVitesseNegative(){
+        composante.set_position(new Point(544,576));
+        usine.set_position(new Point(320,352));
+        Point vitesse=composante.calculerVitesse(usine.get_position());
+        assertEquals(new Point(-1,-1),vitesse);
+    }
 
 }

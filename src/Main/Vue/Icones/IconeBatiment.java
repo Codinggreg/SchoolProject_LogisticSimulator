@@ -3,6 +3,7 @@ package Main.Vue.Icones;
 import Main.Modele.Batiment;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
@@ -39,16 +40,18 @@ public class IconeBatiment implements Observer{
         {
             icone=_images.get(TypeIcone.UNTIER);
         }
-        else if(statutInventaire>=UNTIERS && statutInventaire<DEUXTIERS){
+        else if(statutInventaire>=UNTIERS && statutInventaire<PLEIN){
             icone=_images.get(TypeIcone.DEUXTIERS);
         }
         else if(statutInventaire==PLEIN){
             icone=_images.get(TypeIcone.PLEIN);
         }
-        if(icone.equals(_iconeCourante))//ne change pas licone si cest la meme pour sauver des ressources cpu
-        {
-            icone=null;
-        }
         return icone;
+    }
+
+    public void dessiner(Graphics g) {
+        int posx = _modele.get_position().x;
+        int posy = _modele.get_position().y;
+        g.drawImage(choisirIcone().getImage(), posx, posy, null);
     }
 }

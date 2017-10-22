@@ -11,6 +11,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,7 @@ public class Environnement extends SwingWorker<Object, String>{
     public static final int AVANCEMENT_TOUR = 1;
     public static final int AJOUT_QUANTITE = 1;
     private boolean actif = true;
-	private static final int DELAI = 100;
+	private static final int DELAI = 10;
 	private HashMap<Integer,Batiment> _batiments;
 	private HashMap<Integer,Entrepot> _entrepots;
 	private ArrayList<Composante> _composantes;
@@ -51,6 +52,7 @@ public class Environnement extends SwingWorker<Object, String>{
 * */
 	@Override
 	protected Object doInBackground() throws Exception {
+        firePropertyChange("NOTIFY",null,"Environnement En Marche");
         while(actif) {
             try {
 
@@ -59,38 +61,48 @@ public class Environnement extends SwingWorker<Object, String>{
                 if (!_batiments.isEmpty()) {
                     _batiments.values().stream().filter(p -> p instanceof Usine).forEach(p -> p.avancerTour(AVANCEMENT_TOUR));
                     _composantes.forEach(p -> p.avancer());
-                    _composantes.forEach(p -> verifierCollisions(p));
+                    verifierCollisions(_composantes.iterator());
                     _batiments.values().stream().filter(p -> p instanceof Usine).forEach(p -> produireComposante((Usine)p));
                 }
+                firePropertyChange("REPAINT",null,"");
 
             } catch (InterruptedException i){
-
+                this.actif=false;
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        firePropertyChange("NOTIFY",null,"Environnement Termine");
 		return null;
 	}
 	private void produireComposante(Usine usine){
 	    Composante comp=usine.extraireSortie();
 	    if(comp!=null){
 	        _composantes.add(comp);
-            firePropertyChange("NOTIFY",null,"Usine: {"+usine.getClass().getName()+"} Produit");
+	        firePropertyChange("NOTIFY",null,String.format("Production de composante {%s} par usine {%s}",comp.get_type(),usine.getClass().getSimpleName()));
+            firePropertyChange("COMPONENT",null,comp);
         }
 
     }
-	private void verifierCollisions(Composante comp){
-	    if(comp.arriveADestination())
-        {
+	private void verifierCollisions(Iterator<Composante> ite){
+	    for(Iterator<Composante> i=ite;i.hasNext();){
+	        Composante comp=i.next();
+            if(comp.arriveADestination())
+            {
 
-            Batiment destination=comp.get_destination();
+                Batiment destination=comp.get_destination();
 
-            String message=String.format("Ajout de composante {%s} a l'usine {%s}",comp.get_type(),destination.getClass().getName());
+                String message=String.format("Ajout de composante {%s} a l'usine {%s}",comp.get_type(),destination.getClass().getSimpleName());
 
-            destination.gererAjout(comp.get_type(), AJOUT_QUANTITE);
-            firePropertyChange("NOTIFY",null,message);
+                destination.gererAjout(comp.get_type(), AJOUT_QUANTITE);
+                comp.set_peutEnlever(true);
+
+                i.remove();
+                firePropertyChange("NOTIFY",null,message);
+            }
         }
+
     }
 
 }
