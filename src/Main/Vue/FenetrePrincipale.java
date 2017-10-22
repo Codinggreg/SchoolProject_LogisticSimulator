@@ -32,9 +32,15 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener 
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		if (evt.getPropertyName().equals("TEST")) {
-			repaint();
-			System.out.println(evt.getNewValue());
+		switch(evt.getPropertyName()){
+			case "NOTIFY":{
+				System.out.println(evt.getNewValue());
+				break;
+			}
+			case "ERROR":{
+				System.out.println(evt.getNewValue());
+				break;
+			}
 		}
 	}
 }

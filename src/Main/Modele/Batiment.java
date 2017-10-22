@@ -81,7 +81,9 @@ public abstract class Batiment extends Unite {
         if (peutExtraire()) {
             ajusterInventaire();
             verifierPeutProduire();
-            return getComposante();
+            Composante comp=getComposante();
+            comp.set_destination(this.get_destination());
+            return comp;
         }
         return null;
     }

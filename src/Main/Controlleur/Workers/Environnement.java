@@ -39,6 +39,7 @@ public class Environnement extends SwingWorker<Object, String>{
         }
         _composantes=new ArrayList<>();
 	}
+
 /*
 * Avance tour
 * Avance Composantes
@@ -50,27 +51,45 @@ public class Environnement extends SwingWorker<Object, String>{
 * */
 	@Override
 	protected Object doInBackground() throws Exception {
-		while(actif) {
-			Thread.sleep(DELAI);
-
-            _batiments.values().stream().filter(p->p instanceof Usine).forEach(p->p.avancerTour(AVANCEMENT_TOUR));
-            _composantes.forEach(Composante::avancer);
-            _composantes.forEach(p->verifierCollisions(p));
+        while(actif) {
+            try {
 
 
-            //_batiments.values().stream().filter(p->p instanceof Entrepot).forEach(p->p.);
-			/**
-			 * C'est ici que vous aurez � faire la gestion de la notion de tour.
-			 */
-			firePropertyChange("TEST", null, "Ceci est un test");
-		}
+                Thread.sleep(DELAI);
+                if (!_batiments.isEmpty()) {
+                    _batiments.values().stream().filter(p -> p instanceof Usine).forEach(p -> p.avancerTour(AVANCEMENT_TOUR));
+                    _composantes.forEach(p -> p.avancer());
+                    _composantes.forEach(p -> verifierCollisions(p));
+                    _batiments.values().stream().filter(p -> p instanceof Usine).forEach(p -> produireComposante((Usine)p));
+                }
+
+            } catch (InterruptedException i){
+
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 		return null;
 	}
+	private void produireComposante(Usine usine){
+	    Composante comp=usine.extraireSortie();
+	    if(comp!=null){
+	        _composantes.add(comp);
+            firePropertyChange("NOTIFY",null,"Usine: {"+usine.getClass().getName()+"} Produit");
+        }
+
+    }
 	private void verifierCollisions(Composante comp){
 	    if(comp.arriveADestination())
         {
+
             Batiment destination=comp.get_destination();
+
+            String message=String.format("Ajout de composante {%s} a l'usine {%s}",comp.get_type(),destination.getClass().getName());
+
             destination.gererAjout(comp.get_type(), AJOUT_QUANTITE);
+            firePropertyChange("NOTIFY",null,message);
         }
     }
 

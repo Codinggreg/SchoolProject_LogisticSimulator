@@ -19,6 +19,7 @@ public class Composante extends Unite{
     public void avancer() {
         Point position=this.get_position();
         position.translate(_vitesse.x,_vitesse.y);
+
     }
 
     @Override
