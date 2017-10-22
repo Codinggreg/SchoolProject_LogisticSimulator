@@ -1,18 +1,18 @@
 package Main.Controlleur.Workers;
 
+import Main.Controlleur.IVenteStrategie;
+import Main.Controlleur.Ventes.VenteAleatoire;
 import Main.Modele.Batiment;
 import Main.Modele.Composante;
 import Main.Modele.Entrepot;
 import Main.Modele.Usine;
+import Main.Modele.Usines.UsineMatiere;
 
 
 import javax.swing.SwingWorker;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toMap;
@@ -25,17 +25,17 @@ public class Environnement extends SwingWorker<Object, String>{
 	private HashMap<Integer,Batiment> _batiments;
 	private HashMap<Integer,Entrepot> _entrepots;
 	private ArrayList<Composante> _composantes;
-
+    private IVenteStrategie _venteStrategie;
 	public Environnement(HashMap<Integer, Batiment> batiments) {
 		super();
+		this._venteStrategie=new VenteAleatoire();
 		this._batiments=new HashMap<>();
 		if(!batiments.isEmpty()) {
             this._batiments = batiments;
             this._entrepots = new HashMap<>();
-            _batiments.forEach((key, value) -> {
-                if (value instanceof Entrepot) {
-                    _entrepots.put(key, (Entrepot) value);
-                }
+            List<UsineMatiere> us=_batiments.values().stream().filter(p->p instanceof UsineMatiere).map(u->(UsineMatiere)u).collect(Collectors.toList());
+            _batiments.values().stream().filter(p->p instanceof Entrepot).forEach(entrepot->{
+                us.forEach(mat->entrepot.addObserver(mat));
             });
         }
         _composantes=new ArrayList<>();
@@ -61,6 +61,10 @@ public class Environnement extends SwingWorker<Object, String>{
                 if (!_batiments.isEmpty()) {
                     _batiments.values().stream().filter(p -> p instanceof Usine).forEach(p -> p.avancerTour(AVANCEMENT_TOUR));
                     _composantes.forEach(p -> p.avancer());
+                    if(_venteStrategie.vendre())
+                    {
+                        _batiments.values().stream().filter(p->p instanceof Entrepot).forEach((p->p.extraireSortie()));
+                    }
                     verifierCollisions(_composantes.iterator());
                     _batiments.values().stream().filter(p -> p instanceof Usine).forEach(p -> produireComposante((Usine)p));
                 }

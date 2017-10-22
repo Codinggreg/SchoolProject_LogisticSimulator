@@ -18,8 +18,8 @@ public class PanneauStrategie extends JPanel {
 	public PanneauStrategie() {
 
 		ButtonGroup groupeBoutons = new ButtonGroup();
-		JRadioButton strategie1 = new JRadioButton("Strat�gie 1");
-		JRadioButton strategie2 = new JRadioButton("Strat�gie 2");	
+		JRadioButton strategie1 = new JRadioButton("Vente Aleatoire");
+		JRadioButton strategie2 = new JRadioButton("Vente Intervale");
 		
 		JButton boutonConfirmer = new JButton("Confirmer");
 

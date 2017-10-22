@@ -25,7 +25,6 @@ public class Simulation {
 	    fenetre = new FenetrePrincipale();
 	    rechargerEnvironnement(null);
 
-
 	}
 
     public static void rechargerEnvironnement(HashMap<Integer,BatimentMetaData> metaData) {

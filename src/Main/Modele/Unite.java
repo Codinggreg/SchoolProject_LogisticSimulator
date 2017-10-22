@@ -4,7 +4,7 @@ package Main.Modele;
 import java.awt.*;
 import java.util.Observable;
 
-public abstract class Unite extends Observable {
+public abstract class Unite extends Observable{
     private Integer _id;
     private Point _position;
     private Batiment _destination;
@@ -39,5 +39,9 @@ public abstract class Unite extends Observable {
         {
             this._position=new Point(position.x,position.y);
         }
+    }
+
+    public boolean aUneDestination() {
+        return this._destination!=null;
     }
 }

@@ -2,8 +2,9 @@ package Main.Modele;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Observer;
 
-public abstract class Batiment extends Unite {
+public abstract class Batiment extends Unite{
     public static final int NOT_IN_INVENTORY = -1;
     protected HashMap<String, Production> _inventaire;
     private int _intervalProd;
@@ -82,7 +83,9 @@ public abstract class Batiment extends Unite {
             ajusterInventaire();
             verifierPeutProduire();
             Composante comp=getComposante();
-            comp.set_destination(this.get_destination());
+            if(this.aUneDestination()) {
+                comp.set_destination(this.get_destination());
+            }
             return comp;
         }
         return null;
