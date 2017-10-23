@@ -4,6 +4,9 @@ package Main.Modele;
 import java.awt.*;
 import java.util.Observable;
 
+/**
+ * Une unité possède une position et une destination
+ */
 public abstract class Unite extends Observable{
     private Integer _id;
     private Point _position;

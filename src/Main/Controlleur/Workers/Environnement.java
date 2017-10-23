@@ -17,6 +17,9 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toMap;
 
+/**
+ * Classe principale s'ocuppant de la production et de la vente
+ */
 public class Environnement extends SwingWorker<Object, String>{
     private static final int AVANCEMENT_TOUR = 1;
     private static final int AJOUT_QUANTITE = 1;
@@ -69,10 +72,16 @@ public class Environnement extends SwingWorker<Object, String>{
 		return null;
 	}
 
+    /**
+     * Prodution de composantes
+     */
     private void production() {
         _batiments.values().stream().filter(p -> p instanceof Usine).forEach(p -> produireComposante((Usine)p));
     }
 
+    /**
+     * Vente d'avion
+     */
     private void vente() {
         if(_venteStrategie.vendre())
         {
@@ -82,14 +91,24 @@ public class Environnement extends SwingWorker<Object, String>{
         }
     }
 
+    /**
+     * Avancer la position des composantes dans le modèle
+     */
     private void avancerComposantes() {
         _composantes.forEach(p -> p.avancer());
     }
 
+    /**
+     * Avancement du tour de production des usines
+     */
     private void avancerTour() {
         _batiments.values().stream().filter(p -> p instanceof Usine).forEach(p -> p.avancerTour(AVANCEMENT_TOUR));
     }
 
+    /**
+     * Poduction des composantes de chaque usine
+     * @param usine usine qui doit produire
+     */
     private void produireComposante(Usine usine){
 	    Composante comp=usine.extraireSortie();
 	    if(comp!=null){
@@ -99,6 +118,11 @@ public class Environnement extends SwingWorker<Object, String>{
         }
 
     }
+
+    /**
+     * Verifie si les composantes sont arrivees a destination
+     * @param ite Iterateur de la collection contenant les composantes
+     */
 	private void verifierCollisions(Iterator<Composante> ite){
 	    while( ite.hasNext()){
 	        Composante comp= ite.next();
@@ -119,6 +143,10 @@ public class Environnement extends SwingWorker<Object, String>{
 
     }
 
+    /**
+     * Change la stratégie de vente
+     * @param srategie la stratégie de vente à appliquer
+     */
     public void setStrategie(IVenteStrategie srategie) {
         this._venteStrategie = srategie;
     }

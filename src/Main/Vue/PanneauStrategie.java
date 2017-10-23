@@ -11,6 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingUtilities;
 
+/**
+ * Panneau permettant de choisir la stratégie de vente
+ */
 public class PanneauStrategie extends JPanel {
 
 	private static final long serialVersionUID = 1L;

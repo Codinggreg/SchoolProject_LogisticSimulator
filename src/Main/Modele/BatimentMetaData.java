@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
+/**
+ * Classe permettant de transférer les données d'une usine à la vue et au controlleur
+ */
 public class BatimentMetaData {
     public Point Position;
     public int ID;

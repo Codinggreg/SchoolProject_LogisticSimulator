@@ -2,6 +2,9 @@ package Main.Controlleur.Ventes;
 
 import Main.Controlleur.IVenteStrategie;
 
+/**
+ * Stratégie de vente suivant un intervalle fixe
+ */
 public class VenteIntervalles implements IVenteStrategie {
     private int _intervalCourant;
     private static final int INTERVAL_MAX =1000;

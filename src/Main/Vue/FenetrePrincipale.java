@@ -14,6 +14,9 @@ import java.util.HashMap;
 
 import javax.swing.*;
 
+/**
+ * Affichage principal contenant le panneau principal et les menus
+ */
 public class FenetrePrincipale extends JFrame implements PropertyChangeListener {
 
 	private static final long serialVersionUID = 1L;
@@ -38,6 +41,11 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener 
 		// Emp�cher la redimension de la fen�tre
 		setResizable(false);
 	}
+
+	/**
+	 * Écoute la classe Environnement pour des changements
+	 * @param evt l'événement survenu
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		switch(evt.getPropertyName()){
@@ -61,6 +69,10 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener 
 		}
 	}
 
+    /**
+     * Crée des icones et les donnes au panneau principal
+     * @param metaData données permettant de créer les icones
+     */
     public void ajouterBatiments(HashMap<Integer, BatimentMetaData> metaData) {
         ArrayList<IconeBatiment> batiments=new ArrayList<>();
         for (HashMap.Entry<Integer, BatimentMetaData> entry : metaData.entrySet()) {
@@ -70,6 +82,10 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener 
         }
         panneauPrincipal.setBatiments(batiments);
     }
+
+    /**
+     * Réinitialise l'affichage
+     */
     public void reset(){
 
 	    panneauPrincipal.reset();

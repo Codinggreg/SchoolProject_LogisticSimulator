@@ -3,6 +3,9 @@ package Main.Modele;
 import java.awt.*;
 import java.util.Vector;
 
+/**
+ * Classe contenant les données propre à une composante
+ */
 public class Composante extends Unite{
     private Point _vitesse;
     private String _type;
@@ -26,6 +29,9 @@ public class Composante extends Unite{
         return this._type;
     }
 
+    /**
+     * Augment la position de la composante selon la vitesse
+     */
     public void avancer() {
         Point position=this.get_position();
         position.translate(_vitesse.x,_vitesse.y);
@@ -37,6 +43,12 @@ public class Composante extends Unite{
         super.set_destination(_destination);
         this._vitesse=calculerVitesse(this.get_destination().get_position());
     }
+
+    /**
+     * Calcule la vitesse du composante en calculant le vecteur unitaire du vecteur de la position vers la destination
+     * @param destination la destination de la composante
+     * @return vitesse
+     */
     public Point calculerVitesse(Point destination){
         double distancex=destination.getX()-this.get_position().x;
         double distancey=destination.y-this.get_position().y;
@@ -44,6 +56,11 @@ public class Composante extends Unite{
 
         return new Point((int)(Math.round(distancex/distance)),(int)(Math.round(distancey/distance)));
     }
+
+    /**
+     * détermine si la composante est arrivé à sa destination
+     * @return vrai si oui
+     */
     public boolean arriveADestination() {
 
 

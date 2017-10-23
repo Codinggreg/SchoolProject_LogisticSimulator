@@ -4,6 +4,9 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+/**
+ * Fenêtre permettant de sélectionner la stratégie
+ */
 public class FenetreStrategie extends JFrame {
 
 	private static final long serialVersionUID = 1L;

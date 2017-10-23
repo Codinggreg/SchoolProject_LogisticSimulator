@@ -52,6 +52,12 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,BatimentMet
         return temp;
     }
 
+    /**
+     * Charge la balise Simulation
+     * @param types les types d'usine
+     * @param doc le fichier xml
+     * @return collection de BatimentMetaData contenant les données des usines
+     */
     private HashMap<Integer,BatimentMetaData> chargerBatiments(HashMap<String, BatimentMetaData> types,Document doc) {
         HashMap<Integer,BatimentMetaData> temp=new HashMap<>();
 
@@ -71,7 +77,11 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,BatimentMet
     }
 
 
-
+    /**
+     * Charge la destination des batiments dans la balise chemins
+     * @param batiments collection des batiments
+     * @param doc fichier XML
+     */
     private void setDestinationBatiments(HashMap<Integer,BatimentMetaData> batiments,Document doc){
         Element simulation=(Element)doc.getDocumentElement().getElementsByTagName("simulation").item(0);
         Element destinations=(Element)simulation.getElementsByTagName("chemins").item(0);
@@ -87,6 +97,12 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,BatimentMet
             }
         }
     }
+
+    /**
+     * Charge les types de batiments
+     * @param doc fichier xml
+     * @return Collection de BatimentMetaData contenant les données des types d'usines
+     */
     private HashMap<String,BatimentMetaData> getTypesBatiments(Document doc){
         HashMap<String,BatimentMetaData> temp=new HashMap<>();
 
@@ -125,6 +141,11 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,BatimentMet
         return temp;
     }
 
+    /**
+     * Charge la production de chaque type d'Usine
+     * @param entrees la balise entree de chaque type d'usine
+     * @return Collection contenant le type et la quantite
+     */
     private HashMap<String,Integer> getListeProduction(NodeList entrees) {
         HashMap<String,Integer> temp=new HashMap<>();
 
@@ -142,6 +163,11 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,BatimentMet
         return temp;
     }
 
+    /**
+     * Chargement des icones pour chaque type d'usine
+     * @param l balise icones pour un type d'usine
+     * @return Collection mappant chaque type d'icone a une icone
+     */
     private HashMap<TypeIcone,ImageIcon> getIcones(NodeList l){
         HashMap<TypeIcone,ImageIcon> temp=new HashMap<>();
         for (int i = 0; i < l.getLength(); i++) {

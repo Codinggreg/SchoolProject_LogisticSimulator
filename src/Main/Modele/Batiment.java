@@ -3,6 +3,9 @@ package Main.Modele;
 import java.awt.*;
 import java.util.HashMap;
 
+/**
+ * Batiment pouvant produire ou vendre des composantes
+ */
 public abstract class Batiment extends Unite{
     private HashMap<String, Production> _inventaire;
     private int _intervalProd;
@@ -23,6 +26,10 @@ public abstract class Batiment extends Unite{
         this._productionArretee = _productionArretee;
     }
 
+    /**
+     * Définit la production d'un batiment
+     * @param productions liste d'entrees contenant la quantite requise selon le type
+     */
     public void setProduction(HashMap<String, Integer> productions) {
         for (HashMap.Entry<String, Integer> entry : productions.entrySet()) {
             this.ajouterTypeProduction(entry.getKey(), entry.getValue());
@@ -45,6 +52,10 @@ public abstract class Batiment extends Unite{
         return !this._inventaire.isEmpty();
     }
 
+    /**
+     * Détermine si le nombre d'entrée est suffisant pour produire
+     * @return vrai si le nombre est suffisant
+     */
     public boolean isInventaireSuffisant() {
         if (!isProductionDefinie()) {
             return false;
@@ -57,6 +68,12 @@ public abstract class Batiment extends Unite{
         return true;
     }
 
+    /**
+     * Ajoute un type de composante dans l'inventaire du batiment
+     * La production doit avoir été définie auparavant avec setProduction
+     * @param type le type de composante à ajouter
+     * @param quantite la quantité à ajouter
+     */
     protected void ajouterInventaire(String type, int quantite) {
         Production prod = _inventaire.get(type);
         if (prod != null) {
@@ -64,17 +81,38 @@ public abstract class Batiment extends Unite{
             verifierPeutProduire();
         }
     }
+
+    /**
+     * Démarre le compteur de production si l'inventaire est suffisant
+     */
     private void verifierPeutProduire(){
         if(isInventaireSuffisant()){
             _enProduction=true;
         }
     }
+
+    /**
+     * Retourne le statut du batiment sous forme de pourcentage
+     * @return
+     */
     public abstract int getStatut();
 
+    /**
+     * Crée une nouvelle composante
+     * @return Composante
+     */
     public abstract Composante getComposante();
 
+    /**
+     * Détermine si l'inventaire est suffisant ou si c'est le bon tour pour produire
+     * @return vrai si l'extraction est possible
+     */
     protected abstract boolean peutExtraire();
 
+    /**
+     * Définit le fil à suivre pour produire une composante
+     * @return Composante si la production est réussie
+     */
     public Composante extraireSortie() {
         if (peutExtraire()) {
             ajusterInventaire();
@@ -88,6 +126,9 @@ public abstract class Batiment extends Unite{
         return null;
     }
 
+    /**
+     * Enlève la quantité requise en inventaire lors d'une production
+     */
     protected void ajusterInventaire() {
         for (Production prod : this._inventaire.values()) {
             prod.produire();
@@ -96,6 +137,11 @@ public abstract class Batiment extends Unite{
         _enProduction=false;
     }
 
+    /**
+     * Retourne la quantité d'une composante en inventaire
+     * @param classType le type de composante
+     * @return la quantité en inventaire
+     */
     public int getQuantiteInventaire(String classType) {
         Production prod = this._inventaire.get(classType);
         if (prod == null) {
@@ -104,6 +150,11 @@ public abstract class Batiment extends Unite{
         return prod.get_quantiteEnInventaire();
     }
 
+    /**
+     * Définit le comportement lors d'un ajout de composante au batiment
+     * @param classType le type de composante
+     * @param quantiteAjoutee la quantite ajoutee
+     */
     public abstract void gererAjout(String classType, int quantiteAjoutee);
 
     /***
@@ -118,13 +169,17 @@ public abstract class Batiment extends Unite{
         }
     }
 
+    /**
+     * Incremente le tour de production du batiment si celui-ci est en mode production
+     * @param int_prod
+     */
     public void avancerTour(int int_prod) {
         if (_enProduction&&!_productionArretee) {//aurait pu utiliser un patron state pour gerer ca
             this._intervalCourant += int_prod;
         }
     }
 
-    @SuppressWarnings("SameParameterValue")
+
     protected void setEnProduction(boolean b) {
         _enProduction=b;
     }
@@ -133,6 +188,9 @@ public abstract class Batiment extends Unite{
         this._intervalProd+=i;
     }
 
+    /**
+     * Classe qui s'occupe de la gestion de l'inventaire
+     */
     private class Production {
         private int _quantiteRequise;
         private int _quantiteEnInventaire;

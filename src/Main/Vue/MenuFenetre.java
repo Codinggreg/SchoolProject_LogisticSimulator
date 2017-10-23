@@ -24,7 +24,7 @@ public class MenuFenetre extends JMenuBar {
 	}
 
 	/**
-	 * Cr�er le menu de Fichier
+	 * Créer le menu de Fichier
      */
 	private void ajouterMenuFichier() {
 		JMenu menuFichier = new JMenu(MENU_FICHIER_TITRE);
@@ -45,7 +45,7 @@ public class MenuFenetre extends JMenuBar {
 	}
 
 	/**
-	 * Cr�er le menu de Simulation
+	 * Créer le menu de Simulation
 	 */
 	private void ajouterMenuSimulation() {
 		JMenu menuSimulation = new JMenu(MENU_SIMULATION_TITRE);
@@ -60,7 +60,7 @@ public class MenuFenetre extends JMenuBar {
 	}
 
 	/**
-	 * Cr�er le menu Aide
+	 * Créer le menu Aide
 	 */
 	private void ajouterMenuAide() {
 		JMenu menuAide = new JMenu(MENU_AIDE_TITRE);

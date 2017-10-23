@@ -12,6 +12,9 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Action lancant un SwingWorker qui va charger un fichier XML
+ */
 public class ChargerFichierXMLAction extends AbstractAction implements PropertyChangeListener{
     private XMLSimulationParser xmlWorker;
     public ChargerFichierXMLAction(String name) {
@@ -29,6 +32,11 @@ public class ChargerFichierXMLAction extends AbstractAction implements PropertyC
         }
 
     }
+
+    /**
+     * Boite de dialogue permettant de selectionner un fichier
+     * @return Chemin vers le fichier dans un objet File
+     */
     private File selectionnerFichier(){
         JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         fileChooser.setDialogTitle("S�lectionnez un fichier de configuration");

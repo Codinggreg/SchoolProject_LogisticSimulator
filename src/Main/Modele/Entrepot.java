@@ -2,6 +2,9 @@ package Main.Modele;
 
 import java.awt.*;
 
+/**
+ * Batiment contenant pouvant contenir jusqu'à un nombre maximal d'Avions. Peut vendre des avions
+ */
 public class Entrepot extends Batiment{
     private int _capacite;
     private final String TYPE_COMPOSANTE="avion";

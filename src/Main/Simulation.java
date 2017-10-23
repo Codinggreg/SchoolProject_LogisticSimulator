@@ -15,6 +15,9 @@ import Main.Vue.FenetrePrincipale;
 
 import java.util.HashMap;
 
+/**
+ * Classe principale s'occuppant de créer l'environnement et la fenêtre principale.
+ */
 public class Simulation {
     private static Environnement environnement;
     private static FenetrePrincipale fenetre;
@@ -28,6 +31,11 @@ public class Simulation {
 	    rechargerEnvironnement(null);
         environnement.setStrategie(new VenteAleatoire());
 	}
+
+    /**
+     * Change la stratégie de vente de la classe Environnement
+     * @param type le type de stratégie de vente à donner
+     */
     public static void changerStrategie(ChangerStrategieAction.TypeStrategie type){
 	    switch (type){
             case Aleatoire:
@@ -38,6 +46,11 @@ public class Simulation {
                 break;
         }
     }
+
+    /**
+     * Réinitialise la classe Environnement avec de nouvelles données
+     * @param metaData les données à initialiser
+     */
     public static void rechargerEnvironnement(HashMap<Integer,BatimentMetaData> metaData) {
         HashMap<Integer, Batiment> batiments = new HashMap<>();
 
@@ -59,6 +72,12 @@ public class Simulation {
         environnement.execute();
 
     }
+
+    /**
+     * Ajoute la destination à chaque batiments
+     * @param batiments les batiments sans destinations
+     * @param metaData les données contant la destination
+     */
     private static void attribuerDestination(HashMap<Integer, Batiment> batiments,HashMap<Integer,BatimentMetaData> metaData){
 	    metaData.forEach((key,value)->{
 	        if(value.IDDestination>0)
@@ -67,6 +86,12 @@ public class Simulation {
             }
         });
     }
+
+    /**
+     * Créée les batiments selon les donnéées
+     * @param data les données contenant les types de batiments à créer
+     * @return un batiment créé
+     */
     private static Batiment chargerBatiment(BatimentMetaData data){
 
         Batiment batiment=null;

@@ -11,6 +11,9 @@ import java.util.Iterator;
 
 import javax.swing.*;
 
+/**
+ * Panneau s'occuppant de l'animation des composantes
+ */
 public class PanneauPrincipal extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -51,6 +54,9 @@ public class PanneauPrincipal extends JPanel {
         this._batiments = batiments;
     }
 
+    /**
+     * Réinitialise l'animation
+     */
     public void reset() {
         this._batiments.clear();
         this._composantes.clear();

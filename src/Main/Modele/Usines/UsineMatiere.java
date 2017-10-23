@@ -8,6 +8,9 @@ import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * Usine Produisant du Metal
+ */
 public class UsineMatiere extends Usine implements Observer {
 
     public UsineMatiere(int interval, int id, Point position) {
@@ -25,6 +28,11 @@ public class UsineMatiere extends Usine implements Observer {
         set_intervalCourant(0);
     }
 
+    /**
+     * Ajuste la production selon l'état de la classe Entrepot
+     * @param o l'entrepot
+     * @param arg
+     */
     @Override
     public void update(Observable o, Object arg) {
         Entrepot e=(Entrepot)o;
