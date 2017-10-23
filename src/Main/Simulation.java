@@ -1,5 +1,8 @@
 package Main;
 
+import Main.Controlleur.Actions.ChangerStrategie;
+import Main.Controlleur.Ventes.VenteAleatoire;
+import Main.Controlleur.Ventes.VenteIntervalles;
 import Main.Controlleur.Workers.Environnement;
 import Main.Modele.Batiment;
 import Main.Modele.BatimentMetaData;
@@ -26,7 +29,16 @@ public class Simulation {
 	    rechargerEnvironnement(null);
 
 	}
-
+    public static void changerStrategie(ChangerStrategie.TypeStrategie type){
+	    switch (type){
+            case Aleatoire:
+                environnement.setStrategie(new VenteAleatoire());
+                break;
+            case Intervalles:
+                environnement.setStrategie(new VenteIntervalles());
+                break;
+        }
+    }
     public static void rechargerEnvironnement(HashMap<Integer,BatimentMetaData> metaData) {
         HashMap<Integer, Batiment> batiments = new HashMap<>();
 

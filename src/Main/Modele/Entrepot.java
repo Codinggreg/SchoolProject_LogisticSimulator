@@ -13,7 +13,12 @@ public class Entrepot extends Batiment{
 
     @Override
     public Composante getComposante() {
+        setChanged();
+        notifyObservers();
         return new Composante(0,this.get_position(),"avion");
+    }
+    public boolean presquePlein(){
+            return _capacite-getQuantiteInventaire(TYPE_COMPOSANTE)<=1;
     }
 
     @Override
@@ -25,15 +30,14 @@ public class Entrepot extends Batiment{
     @Override
     public void gererAjout(String classType, int quantiteAjoutee) {
         ajouterInventaire(classType,quantiteAjoutee);
-        if(estPlein())
-        {
-            setChanged();
-            notifyObservers();
-        }
+
+        setChanged();
+        notifyObservers();
+
     }
 
     public boolean estPlein(){
-        return this.getQuantiteInventaire(TYPE_COMPOSANTE)==this._capacite;
+        return this.getQuantiteInventaire(TYPE_COMPOSANTE)>=this._capacite;
     }
     @Override
     protected boolean peutExtraire() {

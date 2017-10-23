@@ -12,6 +12,6 @@ public class VenteAleatoire implements IVenteStrategie {
     @Override
     public boolean vendre() {
 
-        return ran.nextInt(10000)+1>=9000;
+        return ran.nextInt(10000)+1>=19995;
     }
 }

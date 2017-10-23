@@ -41,15 +41,7 @@ public class Environnement extends SwingWorker<Object, String>{
         _composantes=new ArrayList<>();
 	}
 
-/*
-* Avance tour
-* Avance Composantes
-* Vente
-* Collisions
-* Extrait composantes
-* MiseAJourFenetre
-*
-* */
+
 	@Override
 	protected Object doInBackground() throws Exception {
         firePropertyChange("NOTIFY",null,"Environnement En Marche");
@@ -59,14 +51,13 @@ public class Environnement extends SwingWorker<Object, String>{
 
                 Thread.sleep(DELAI);
                 if (!_batiments.isEmpty()) {
-                    _batiments.values().stream().filter(p -> p instanceof Usine).forEach(p -> p.avancerTour(AVANCEMENT_TOUR));
-                    _composantes.forEach(p -> p.avancer());
-                    if(_venteStrategie.vendre())
-                    {
-                        _batiments.values().stream().filter(p->p instanceof Entrepot).forEach((p->p.extraireSortie()));
-                    }
+
+                    avancerTour();
+                    avancerComposantes();
+                    vente();
+                    production();
                     verifierCollisions(_composantes.iterator());
-                    _batiments.values().stream().filter(p -> p instanceof Usine).forEach(p -> produireComposante((Usine)p));
+
                 }
                 firePropertyChange("REPAINT",null,"");
 
@@ -80,7 +71,29 @@ public class Environnement extends SwingWorker<Object, String>{
         firePropertyChange("NOTIFY",null,"Environnement Termine");
 		return null;
 	}
-	private void produireComposante(Usine usine){
+
+    private void production() {
+        _batiments.values().stream().filter(p -> p instanceof Usine).forEach(p -> produireComposante((Usine)p));
+    }
+
+    private void vente() {
+        if(_venteStrategie.vendre())
+        {
+            String message=String.format("Vente d'un avion utilisant la strategie {%s}",this._venteStrategie.getClass().getSimpleName());
+            _batiments.values().stream().filter(p->p instanceof Entrepot).forEach((p->p.extraireSortie()));
+            firePropertyChange("NOTIFY",null,message);
+        }
+    }
+
+    private void avancerComposantes() {
+        _composantes.forEach(p -> p.avancer());
+    }
+
+    private void avancerTour() {
+        _batiments.values().stream().filter(p -> p instanceof Usine).forEach(p -> p.avancerTour(AVANCEMENT_TOUR));
+    }
+
+    private void produireComposante(Usine usine){
 	    Composante comp=usine.extraireSortie();
 	    if(comp!=null){
 	        _composantes.add(comp);
@@ -109,4 +122,7 @@ public class Environnement extends SwingWorker<Object, String>{
 
     }
 
+    public void setStrategie(IVenteStrategie srategie) {
+        this._venteStrategie = srategie;
+    }
 }

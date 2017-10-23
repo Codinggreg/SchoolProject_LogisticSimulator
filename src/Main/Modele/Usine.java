@@ -19,7 +19,7 @@ public abstract class Usine extends Batiment{
     public boolean isBonTour(){
         int intervalCourant=this.getIntervalCourant();
         int intervalProd=this.getIntervalProd();
-        return intervalCourant-intervalProd==0&&intervalCourant>0;
+        return intervalCourant>=intervalProd&&intervalCourant>0;
     }
     @Override
     protected boolean peutExtraire() {

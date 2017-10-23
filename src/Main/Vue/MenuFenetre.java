@@ -53,8 +53,6 @@ public class MenuFenetre extends JMenuBar {
 		menuSimulation.add(menuChoisir);
 
 		menuChoisir.addActionListener((ActionEvent e) -> {
-			// Ouvrir la fen�tre de s�lection
-			// TODO - R�cup�rer la bonne strat�gie de vente
 			new FenetreStrategie();
 		});
 		add(menuSimulation);

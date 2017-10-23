@@ -4,7 +4,7 @@ import Main.Controlleur.IVenteStrategie;
 
 public class VenteIntervalles implements IVenteStrategie {
     private int _intervalCourant;
-    private static final int INTERVAL_MAX =5000;
+    private static final int INTERVAL_MAX =1000;
 
     public VenteIntervalles(){
         _intervalCourant=0;

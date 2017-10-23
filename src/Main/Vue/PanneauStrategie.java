@@ -1,5 +1,7 @@
 package Main.Vue;
 
+import Main.Controlleur.Actions.ChangerStrategie;
+
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.util.Enumeration;
@@ -18,18 +20,18 @@ public class PanneauStrategie extends JPanel {
 	public PanneauStrategie() {
 
 		ButtonGroup groupeBoutons = new ButtonGroup();
-		JRadioButton strategie1 = new JRadioButton("Vente Aleatoire");
+		JRadioButton strategie1 = new JRadioButton("Vente Aléatoire");
+		strategie1.setActionCommand(ChangerStrategie.TypeStrategie.Aleatoire.toString());
 		JRadioButton strategie2 = new JRadioButton("Vente Intervale");
-		
+		strategie2.setActionCommand(ChangerStrategie.TypeStrategie.Intervalles.toString());
 		JButton boutonConfirmer = new JButton("Confirmer");
+		strategie1.setSelected(true);
 
-		boutonConfirmer.addActionListener((ActionEvent e) -> {
-			// TODO - Appeler la bonne strat�gie
-			System.out.println(getSelectedButtonText(groupeBoutons));
-			// Fermer la fen�tre du composant
-			SwingUtilities.getWindowAncestor((Component) e.getSource()).dispose();
-		});
+        groupeBoutons.add(strategie1);
+        groupeBoutons.add(strategie2);
 
+        boutonConfirmer.setAction(new ChangerStrategie(groupeBoutons,"Confirmer"));
+        boutonConfirmer.addActionListener((ActionEvent e)->{SwingUtilities.getWindowAncestor((Component) e.getSource()).dispose();});
 		JButton boutonAnnuler = new JButton("Annuler");
 
 		boutonAnnuler.addActionListener((ActionEvent e) -> {
@@ -37,8 +39,7 @@ public class PanneauStrategie extends JPanel {
 			SwingUtilities.getWindowAncestor((Component) e.getSource()).dispose();
 		});
 
-		groupeBoutons.add(strategie1);
-		groupeBoutons.add(strategie2);		
+
 		add(strategie1);
 		add(strategie2);		
 		add(boutonConfirmer);

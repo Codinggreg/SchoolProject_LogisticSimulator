@@ -16,7 +16,7 @@ public class IconeBatiment implements Observer{
     private final int UNTIERS=33;
     private final int DEUXTIERS=66;
     private final int VIDE=0;
-    private final int PLEIN=90;//Pour laisser le temps a laffichage dafficher 3 barres
+    private final int PLEIN=100;//Pour laisser le temps a laffichage dafficher 3 barres
 
     public IconeBatiment(HashMap<TypeIcone,ImageIcon> images,Batiment batiment){
         _images=images;

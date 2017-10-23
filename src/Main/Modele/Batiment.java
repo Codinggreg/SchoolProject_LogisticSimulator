@@ -11,16 +11,27 @@ public abstract class Batiment extends Unite{
     private int _intervalCourant;
 
     private boolean _enProduction;
-
+    private boolean _productionArretee;
     public Batiment(int interval, int id, Point position) {
         super(id, position);
         _inventaire = new HashMap<>();
         this._intervalProd = interval;
         this._intervalCourant = 0;
         _enProduction = false;
+        _productionArretee=false;
     }
 
+    public boolean is_productionArretee() {
+        return _productionArretee;
+    }
 
+    public void set_productionArretee(boolean _productionArretee) {
+        this._productionArretee = _productionArretee;
+    }
+
+    public boolean is_enProduction() {
+        return _enProduction;
+    }
 
     public void setProduction(HashMap<String, Integer> productions) {
         for (HashMap.Entry<String, Integer> entry : productions.entrySet()) {
@@ -122,13 +133,17 @@ public abstract class Batiment extends Unite{
     }
 
     public void avancerTour(int int_prod) {
-        if (_enProduction) {//aurait pu utiliser un patron state pour gerer ca
+        if (_enProduction&&!_productionArretee) {//aurait pu utiliser un patron state pour gerer ca
             this._intervalCourant += int_prod;
         }
     }
 
     protected void setEnProduction(boolean b) {
         _enProduction=b;
+    }
+
+    public void ajusterProduction(int i) {
+        this._intervalProd+=i;
     }
 
     private class Production {
