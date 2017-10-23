@@ -1,12 +1,10 @@
 package Main.Vue;
 
-import Main.Controlleur.Actions.ChangerStrategie;
+import Main.Controlleur.Actions.ChangerStrategieAction;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.util.Enumeration;
 
-import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -21,16 +19,16 @@ public class PanneauStrategie extends JPanel {
 
 		ButtonGroup groupeBoutons = new ButtonGroup();
 		JRadioButton strategie1 = new JRadioButton("Vente Aléatoire");
-		strategie1.setActionCommand(ChangerStrategie.TypeStrategie.Aleatoire.toString());
+		strategie1.setActionCommand(ChangerStrategieAction.TypeStrategie.Aleatoire.toString());
 		JRadioButton strategie2 = new JRadioButton("Vente Intervale");
-		strategie2.setActionCommand(ChangerStrategie.TypeStrategie.Intervalles.toString());
+		strategie2.setActionCommand(ChangerStrategieAction.TypeStrategie.Intervalles.toString());
 		JButton boutonConfirmer = new JButton("Confirmer");
 		strategie1.setSelected(true);
 
         groupeBoutons.add(strategie1);
         groupeBoutons.add(strategie2);
 
-        boutonConfirmer.setAction(new ChangerStrategie(groupeBoutons,"Confirmer"));
+        boutonConfirmer.setAction(new ChangerStrategieAction(groupeBoutons,"Confirmer"));
         boutonConfirmer.addActionListener((ActionEvent e)->{SwingUtilities.getWindowAncestor((Component) e.getSource()).dispose();});
 		JButton boutonAnnuler = new JButton("Annuler");
 

@@ -5,9 +5,9 @@ import Main.Simulation;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class ChangerStrategie extends AbstractAction {
+public class ChangerStrategieAction extends AbstractAction {
     private ButtonGroup _group;
-    public ChangerStrategie(ButtonGroup group,String nom){
+    public ChangerStrategieAction(ButtonGroup group, String nom){
         super(nom);
         this._group=group;
     }

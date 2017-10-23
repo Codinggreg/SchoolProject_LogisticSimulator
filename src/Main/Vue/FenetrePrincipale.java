@@ -1,7 +1,6 @@
 package Main.Vue;
 
 import Main.Modele.BatimentMetaData;
-import Main.Modele.Composante;
 import Main.Vue.Icones.IconeBatiment;
 import Main.Vue.Icones.IconeComposante;
 
@@ -51,7 +50,7 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener 
 				break;
 			}
 			case "COMPONENT":{
-                IconeComposante ico=new IconeComposante((Composante)evt.getNewValue());
+                IconeComposante ico=new IconeComposante(evt.getNewValue());
 				panneauPrincipal.ajouterComposante(ico);
                 break;
 			}

@@ -37,7 +37,7 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,BatimentMet
             firePropertyChange("Error",null,"Aucun fichier Xml detecte.");
         }else
         {
-            Document doc=XMLHelper.getXMLFIle(this._xmlFile);
+            Document doc=XMLHelper.getXMLFile(this._xmlFile);
             if(doc!=null){
                 HashMap<String,BatimentMetaData> types=getTypesBatiments(doc);
                 temp=chargerBatiments(types,doc);

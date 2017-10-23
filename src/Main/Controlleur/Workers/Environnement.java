@@ -27,7 +27,6 @@ public class Environnement extends SwingWorker<Object, String>{
     private IVenteStrategie _venteStrategie;
 	public Environnement(HashMap<Integer, Batiment> batiments) {
 		super();
-		this._venteStrategie=new VenteAleatoire();
 		this._batiments=new HashMap<>();
 		if(!batiments.isEmpty()) {
             this._batiments = batiments;

@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class XMLHelper {
 
-public static Document getXMLFIle(File file){
+public static Document getXMLFile(File file){
     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
     Document doc=null;
     try{

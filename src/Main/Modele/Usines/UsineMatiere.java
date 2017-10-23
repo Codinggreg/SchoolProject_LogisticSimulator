@@ -28,6 +28,7 @@ public class UsineMatiere extends Usine implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         Entrepot e=(Entrepot)o;
+        int statut=e.getStatut();
         if(e.getStatut()==0)
         {
             if(this.getIntervalProd()>=40) {
@@ -35,15 +36,15 @@ public class UsineMatiere extends Usine implements Observer {
             }
             set_productionArretee(false);
         }
-        else if(e.estPlein()){
+        else if(statut==100){
             set_productionArretee(true);
         }
-        else if (e.presquePlein())
+        else if (statut>=80)
         {
             this.ajusterProduction(70);
             set_productionArretee(true);
         }
-        else if (e.getStatut()>=50)
+        else if (statut>=50)
         {
             this.ajusterProduction(5);
             set_productionArretee(false);

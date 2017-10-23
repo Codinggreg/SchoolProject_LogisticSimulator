@@ -16,6 +16,12 @@ public class IconeComposante {
         this._modele=comp;
         chargerIcone();
     }
+    public IconeComposante(Object obj){
+        if(obj instanceof Composante){
+            this._modele=(Composante) obj;
+            chargerIcone();
+        }
+    }
     static public void chargerIcones(){
         String cheminRessources="src/ressources/";
         _icones=new HashMap<>();

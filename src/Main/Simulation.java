@@ -1,6 +1,6 @@
 package Main;
 
-import Main.Controlleur.Actions.ChangerStrategie;
+import Main.Controlleur.Actions.ChangerStrategieAction;
 import Main.Controlleur.Ventes.VenteAleatoire;
 import Main.Controlleur.Ventes.VenteIntervalles;
 import Main.Controlleur.Workers.Environnement;
@@ -13,7 +13,6 @@ import Main.Modele.Usines.UsineMatiere;
 import Main.Modele.Usines.UsineMoteur;
 import Main.Vue.FenetrePrincipale;
 
-import java.awt.*;
 import java.util.HashMap;
 
 public class Simulation {
@@ -27,9 +26,9 @@ public class Simulation {
 
 	    fenetre = new FenetrePrincipale();
 	    rechargerEnvironnement(null);
-
+        environnement.setStrategie(new VenteAleatoire());
 	}
-    public static void changerStrategie(ChangerStrategie.TypeStrategie type){
+    public static void changerStrategie(ChangerStrategieAction.TypeStrategie type){
 	    switch (type){
             case Aleatoire:
                 environnement.setStrategie(new VenteAleatoire());
