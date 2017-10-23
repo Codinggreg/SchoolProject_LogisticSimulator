@@ -30,8 +30,8 @@ public class UsineMatiere extends Usine implements Observer {
         Entrepot e=(Entrepot)o;
         if(e.getStatut()==0)
         {
-            if(this.getIntervalProd()>=10) {
-                this.ajusterProduction(-5);
+            if(this.getIntervalProd()>=40) {
+                this.ajusterProduction(-20);
             }
             set_productionArretee(false);
         }
