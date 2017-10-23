@@ -13,7 +13,7 @@ public abstract class Usine extends Batiment{
      *
      * @param interval interval de temps requis pour produire une composante
      */
-    public Usine(int interval,int id,Point position){
+    protected Usine(int interval, int id, Point position){
         super(interval,id,position);
     }
     public boolean isBonTour(){

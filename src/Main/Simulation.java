@@ -17,7 +17,7 @@ import java.awt.*;
 import java.util.HashMap;
 
 public class Simulation {
-    static Environnement environnement;
+    private static Environnement environnement;
     private static FenetrePrincipale fenetre;
 	/**
 	 * Cette classe repr�sente l'application dans son ensemble.

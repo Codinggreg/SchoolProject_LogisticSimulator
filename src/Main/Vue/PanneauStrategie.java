@@ -47,20 +47,4 @@ public class PanneauStrategie extends JPanel {
 
 	}
 
-	/**
-	 * Retourne le bouton s�lectionn� dans un groupe de boutons.
-	 * @param groupeBoutons
-	 * @return
-	 */
-	public String getSelectedButtonText(ButtonGroup groupeBoutons) {
-		for (Enumeration<AbstractButton> boutons = groupeBoutons.getElements(); boutons.hasMoreElements();) {
-			AbstractButton bouton = boutons.nextElement();
-			if (bouton.isSelected()) {
-				return bouton.getText();
-			}
-		}
-
-		return null;
-	}
-
 }

@@ -9,9 +9,9 @@ public class FenetreStrategie extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private static final String TITRE_FENETRE = "Sélectionnez votre stratégie de vente";
 	private static final Dimension DIMENSION = new Dimension(250, 100);
-	private PanneauStrategie panneauStrategie = new PanneauStrategie();
 
 	public FenetreStrategie() {
+		PanneauStrategie panneauStrategie = new PanneauStrategie();
 		add(panneauStrategie);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle(TITRE_FENETRE);

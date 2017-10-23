@@ -18,13 +18,12 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toMap;
 
 public class Environnement extends SwingWorker<Object, String>{
-    public static final int AVANCEMENT_TOUR = 1;
-    public static final int AJOUT_QUANTITE = 1;
+    private static final int AVANCEMENT_TOUR = 1;
+    private static final int AJOUT_QUANTITE = 1;
     private boolean actif = true;
 	private static final int DELAI = 5;
 	private HashMap<Integer,Batiment> _batiments;
-	private HashMap<Integer,Entrepot> _entrepots;
-	private ArrayList<Composante> _composantes;
+    private ArrayList<Composante> _composantes;
     private IVenteStrategie _venteStrategie;
 	public Environnement(HashMap<Integer, Batiment> batiments) {
 		super();
@@ -32,7 +31,6 @@ public class Environnement extends SwingWorker<Object, String>{
 		this._batiments=new HashMap<>();
 		if(!batiments.isEmpty()) {
             this._batiments = batiments;
-            this._entrepots = new HashMap<>();
             List<UsineMatiere> us=_batiments.values().stream().filter(p->p instanceof UsineMatiere).map(u->(UsineMatiere)u).collect(Collectors.toList());
             _batiments.values().stream().filter(p->p instanceof Entrepot).forEach(entrepot->{
                 us.forEach(mat->entrepot.addObserver(mat));
@@ -103,8 +101,8 @@ public class Environnement extends SwingWorker<Object, String>{
 
     }
 	private void verifierCollisions(Iterator<Composante> ite){
-	    for(Iterator<Composante> i=ite;i.hasNext();){
-	        Composante comp=i.next();
+	    while( ite.hasNext()){
+	        Composante comp= ite.next();
             if(comp.arriveADestination())
             {
 
@@ -115,7 +113,7 @@ public class Environnement extends SwingWorker<Object, String>{
                 destination.gererAjout(comp.get_type(), AJOUT_QUANTITE);
                 comp.set_peutEnlever(true);
 
-                i.remove();
+                ite.remove();
                 firePropertyChange("NOTIFY",null,message);
             }
         }

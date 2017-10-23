@@ -12,11 +12,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * Code de chargement de fichier XML inspire de: http://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
  * Ce code assume que le fichier XML est valide
  */
+@SuppressWarnings("CanBeFinal")
 public class XMLSimulationParser extends SwingWorker<HashMap<Integer,BatimentMetaData>,String>  {
 
 
@@ -130,7 +132,7 @@ public class XMLSimulationParser extends SwingWorker<HashMap<Integer,BatimentMet
             Element ele=(Element)entrees.item(i);
             String type=ele.getAttribute("type");
             String prodNum=ele.getAttribute("quantite");
-            if(prodNum==""){
+            if(Objects.equals(prodNum, "")){
                 prodNum=ele.getAttribute("capacite");
             }
             int quantite=Integer.parseInt(prodNum);

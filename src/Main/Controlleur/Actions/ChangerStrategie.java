@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class ChangerStrategie extends AbstractAction {
-    ButtonGroup _group;
+    private ButtonGroup _group;
     public ChangerStrategie(ButtonGroup group,String nom){
         super(nom);
         this._group=group;

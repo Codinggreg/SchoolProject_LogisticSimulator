@@ -2,17 +2,15 @@ package Main.Modele;
 
 import java.awt.*;
 import java.util.HashMap;
-import java.util.Observer;
 
 public abstract class Batiment extends Unite{
-    public static final int NOT_IN_INVENTORY = -1;
-    protected HashMap<String, Production> _inventaire;
+    private HashMap<String, Production> _inventaire;
     private int _intervalProd;
     private int _intervalCourant;
 
     private boolean _enProduction;
     private boolean _productionArretee;
-    public Batiment(int interval, int id, Point position) {
+    Batiment(int interval, int id, Point position) {
         super(id, position);
         _inventaire = new HashMap<>();
         this._intervalProd = interval;
@@ -21,16 +19,8 @@ public abstract class Batiment extends Unite{
         _productionArretee=false;
     }
 
-    public boolean is_productionArretee() {
-        return _productionArretee;
-    }
-
-    public void set_productionArretee(boolean _productionArretee) {
+    protected void set_productionArretee(boolean _productionArretee) {
         this._productionArretee = _productionArretee;
-    }
-
-    public boolean is_enProduction() {
-        return _enProduction;
     }
 
     public void setProduction(HashMap<String, Integer> productions) {
@@ -43,10 +33,6 @@ public abstract class Batiment extends Unite{
         return _intervalProd;
     }
 
-    public void set_intervalProd(int _intervalProd) {
-        this._intervalProd = _intervalProd;
-    }
-
     public int getIntervalCourant() {
         return _intervalCourant;
     }
@@ -55,7 +41,7 @@ public abstract class Batiment extends Unite{
         this._intervalCourant = _intervalCourant;
     }
 
-    public boolean isProductionDefinie() {
+    private boolean isProductionDefinie() {
         return !this._inventaire.isEmpty();
     }
 
@@ -138,6 +124,7 @@ public abstract class Batiment extends Unite{
         }
     }
 
+    @SuppressWarnings("SameParameterValue")
     protected void setEnProduction(boolean b) {
         _enProduction=b;
     }
@@ -150,30 +137,16 @@ public abstract class Batiment extends Unite{
         private int _quantiteRequise;
         private int _quantiteEnInventaire;
 
-        /***
-         *
-         * @param _quantiteRequise Quantite requise pour produire en inventaire.
-         * @param _quantiteEnInventaire Quantite de composante presentement en inventaire.
-         */
-        public Production(int _quantiteRequise, int _quantiteEnInventaire) {
-            this._quantiteRequise = _quantiteRequise;
-            this._quantiteEnInventaire = _quantiteEnInventaire;
-        }
-
-        public Production(int _quantiteRequise) {
+        Production(int _quantiteRequise) {
             this._quantiteRequise = _quantiteRequise;
             this._quantiteEnInventaire = 0;
         }
 
-        public int get_quantiteRequise() {
-            return _quantiteRequise;
-        }
-
-        public int get_quantiteEnInventaire() {
+        int get_quantiteEnInventaire() {
             return _quantiteEnInventaire;
         }
 
-        public void ajoutInventaire(int ajout) {
+        void ajoutInventaire(int ajout) {
             int resultat = this._quantiteEnInventaire + ajout;
             if (resultat >= 0) {
                 this._quantiteEnInventaire = resultat;
@@ -182,11 +155,11 @@ public abstract class Batiment extends Unite{
             }
         }
 
-        public boolean isQuantiteSuffisante() {
+        boolean isQuantiteSuffisante() {
             return this._quantiteEnInventaire - this._quantiteRequise >= 0;
         }
 
-        public void produire() {
+        void produire() {
             this._quantiteEnInventaire -= this._quantiteRequise;
         }
     }

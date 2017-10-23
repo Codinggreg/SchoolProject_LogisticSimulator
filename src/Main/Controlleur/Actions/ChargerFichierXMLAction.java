@@ -13,7 +13,7 @@ import java.io.File;
 import java.util.concurrent.ExecutionException;
 
 public class ChargerFichierXMLAction extends AbstractAction implements PropertyChangeListener{
-    XMLSimulationParser xmlWorker;
+    private XMLSimulationParser xmlWorker;
     public ChargerFichierXMLAction(String name) {
         super(name);
     }

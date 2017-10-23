@@ -42,8 +42,7 @@ public class Composante extends Unite{
         double distancey=destination.y-this.get_position().y;
         double distance=this.get_position().distance(destination);
 
-        Point vitesse=new Point((int)(Math.round(distancex/distance)),(int)(Math.round(distancey/distance)));
-        return vitesse;
+        return new Point((int)(Math.round(distancex/distance)),(int)(Math.round(distancey/distance)));
     }
     public boolean arriveADestination() {
 
@@ -54,8 +53,5 @@ public class Composante extends Unite{
 
     public void setVitesse(int x, int y) {
         this._vitesse=new Point(x,y);
-    }
-    public void setVitesse(Point point){
-        this._vitesse=point;
     }
 }

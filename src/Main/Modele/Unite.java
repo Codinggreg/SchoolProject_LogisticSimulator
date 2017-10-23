@@ -9,14 +9,6 @@ public abstract class Unite extends Observable{
     private Point _position;
     private Batiment _destination;
 
-    public Integer get_id() {
-        return _id;
-    }
-
-    public void set_id(Integer _id) {
-        this._id = _id;
-    }
-
     public Point get_position() {
         return _position;
     }
@@ -31,7 +23,7 @@ public abstract class Unite extends Observable{
     public void set_destination(Batiment _destination) {
         this._destination = _destination;
     }
-    public Unite(int _id, Point position) {
+    Unite(int _id, Point position) {
         this._id = _id;
         if(position==null){
             this._position=new Point(0,0);
