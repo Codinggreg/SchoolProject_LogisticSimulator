@@ -39,6 +39,7 @@ public class Simulation {
                 batiments.put(entry.getKey(), chargerBatiment(entry.getValue()));
             }
             attribuerDestination(batiments,metaData);
+            fenetre.reset();
             fenetre.ajouterBatiments(metaData);
         }
 

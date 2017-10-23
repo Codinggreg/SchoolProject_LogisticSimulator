@@ -71,4 +71,9 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener 
         }
         panneauPrincipal.setBatiments(batiments);
     }
+    public void reset(){
+
+	    panneauPrincipal.reset();
+	    this.repaint();
+    }
 }

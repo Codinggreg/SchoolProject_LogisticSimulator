@@ -15,10 +15,7 @@ public class PanneauPrincipal extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
-	// Variables temporaires de la demonstration:
-	private Point position = new Point(0,0);
-	private Point vitesse = new Point(1,1);
-	private int taille = 32;
+
     private ArrayList<IconeComposante> _composantes;
 	private ArrayList<IconeBatiment> _batiments;
 
@@ -49,5 +46,10 @@ public class PanneauPrincipal extends JPanel {
 
     public void setBatiments(ArrayList<IconeBatiment> batiments) {
         this._batiments = batiments;
+    }
+
+    public void reset() {
+        this._batiments.clear();
+        this._composantes.clear();
     }
 }
