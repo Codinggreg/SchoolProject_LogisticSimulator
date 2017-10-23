@@ -21,7 +21,7 @@ public class Environnement extends SwingWorker<Object, String>{
     public static final int AVANCEMENT_TOUR = 1;
     public static final int AJOUT_QUANTITE = 1;
     private boolean actif = true;
-	private static final int DELAI = 10;
+	private static final int DELAI = 5;
 	private HashMap<Integer,Batiment> _batiments;
 	private HashMap<Integer,Entrepot> _entrepots;
 	private ArrayList<Composante> _composantes;

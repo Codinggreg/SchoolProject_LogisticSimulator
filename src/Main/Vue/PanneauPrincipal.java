@@ -27,7 +27,8 @@ public class PanneauPrincipal extends JPanel {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-
+        _batiments.forEach(p->p.dessinerLigne(g));
+        
 		for(Iterator<IconeComposante> ite=_composantes.iterator();ite.hasNext();){
 		    IconeComposante comp=ite.next();
 		    if(comp.peutEnlever()) {
@@ -37,7 +38,9 @@ public class PanneauPrincipal extends JPanel {
 		        comp.dessiner(g);
             }
         }
+
         _batiments.forEach(p->p.dessiner(g));
+
     }
 
 	void ajouterComposante(IconeComposante ico) {

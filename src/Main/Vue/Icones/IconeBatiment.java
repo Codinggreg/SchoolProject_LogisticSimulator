@@ -52,6 +52,22 @@ public class IconeBatiment implements Observer{
     public void dessiner(Graphics g) {
         int posx = _modele.get_position().x;
         int posy = _modele.get_position().y;
+        Image icone=choisirIcone().getImage();
+
+
         g.drawImage(choisirIcone().getImage(), posx, posy, null);
+
+    }
+    public void dessinerLigne(Graphics g){
+        int posx = _modele.get_position().x;
+        int posy = _modele.get_position().y;
+        Image icone=choisirIcone().getImage();
+        int offsetX=icone.getWidth(null)/2;
+        int offsetY=icone.getHeight(null)/2;
+
+        if(_modele.aUneDestination()){
+            Point dest=new Point(_modele.get_destination().get_position());
+            g.drawLine(posx+offsetX,posy+offsetY,dest.x+offsetX,dest.y+offsetY);
+        }
     }
 }
