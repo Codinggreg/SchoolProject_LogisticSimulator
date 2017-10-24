@@ -29,7 +29,7 @@ public class Simulation {
 
 	    fenetre = new FenetrePrincipale();
 	    rechargerEnvironnement(null);
-        environnement.setStrategie(new VenteAleatoire());
+
 	}
 
     /**
@@ -69,6 +69,7 @@ public class Simulation {
 
         environnement=new Environnement(batiments);
         environnement.addPropertyChangeListener(fenetre);
+        environnement.setStrategie(new VenteAleatoire());
         environnement.execute();
 
     }
